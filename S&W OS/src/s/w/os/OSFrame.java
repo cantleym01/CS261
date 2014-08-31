@@ -8,7 +8,6 @@ public class OSFrame extends JFrame
     
     public OSFrame()
     {   
-        setSize(FrameW, FrameH);
-    }
-    
+        setSize(FrameW, FrameH); //set the size of the frame
+    } 
 }
