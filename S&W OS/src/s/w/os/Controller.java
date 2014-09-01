@@ -7,20 +7,25 @@
 package s.w.os;
 
 import javax.swing.JFrame; //create the frame of the OS
-import javax.swing.JButton; //make buttons
 import javax.swing.JLabel; //make labels, such as Time and Date
 import javax.swing.JPanel; //Panels to do things
 import javax.swing.JMenu; //Menu for things such as File
 import javax.swing.JMenuBar; //The bar to hold all of the Menu items
 import javax.swing.JMenuItem; //Sub items, like an exit command in the File Menu
-import javax.swing.JSeparator; //Separator to make things pretty
-import javax.swing.JOptionPane; //Use this for Yes, No confirmations
 import java.awt.BorderLayout; //Use this to add layout for the OS
+import java.awt.Color;
+
+//stuff to update time and date as the OS runs
+import javax.swing.Timer;
+import java.util.Date;  
 
 //Event Items
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+
+//imports to keep track of the date and time
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Controller {
     
@@ -40,14 +45,64 @@ public class Controller {
         //Open Directory, History, Help, and Exit
         JMenu fileApp = new JMenu("File");
         
-        Initialize(OSFrame, OSMenu, fileApp); //create the display
+        JPanel OSToolBarPanel = new JPanel();
+        
+        //Now do things to get OS labels (version, date, and time)
+        String[] OSDataStr = new String [3];//The data in string form
+        JLabel[] OSDataLabels = new JLabel[3]; //The data's cooresponding labels
+        
+        OSDataStr [0] = "Ver 0.0.1"; //the version of the OS
+                
+        Calendar cal1 = Calendar.getInstance(); //create calendar obj
+        cal1.getTime(); //get the time data (includes date as well
+    	SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/YYYY"); //get format
+    	OSDataStr[1] = "Date: " + sdf1.format(cal1.getTime()); //put the date into the data
+        
+        Calendar cal2 = Calendar.getInstance(); //create calendar obj
+        cal2.getTime(); //get the time data (includes date as well
+        SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm a"); //get format
+    	OSDataStr[2] = sdf2.format(cal2.getTime()); //put the time into the data
+        
+        for (int i = 0; i < OSDataStr.length; i++)
+        {
+            OSDataLabels[i] = new JLabel(OSDataStr[i]); //name the labels
+        }
+        
+        //create the display
+        Initialize(OSFrame, OSMenu, fileApp, OSToolBarPanel, OSDataLabels);
+        
+        //update the date and time as the OS runs
+        updateDateAndTime(sdf1, sdf2, OSDataLabels);
     }
     
-    private void Initialize(JFrame frame, JMenuBar menu, JMenu file)
+    private void Initialize(JFrame frame, JMenuBar menu, JMenu file, JPanel toolPanel,
+                            JLabel[] ToolData)
     {
         createFrame(frame); //create the frame of the OS
         createMenu(menu, file); //create the menu for the OS
-        addLayout(frame, menu);
+        addLayout(frame, menu, toolPanel, ToolData);
+    }
+    
+    private void updateDateAndTime(final SimpleDateFormat sdf1, final SimpleDateFormat sdf2,
+                                final JLabel OSDataLabels[])
+    {
+        //Update time & date
+        ActionListener timeListener = new ActionListener() //listener for time
+        {  
+            //once 1 second has passed update, but the display is in H:MM
+            public void actionPerformed(ActionEvent timer)  
+            {  
+                Date date = new Date();  
+                String time1 = sdf1.format(date);  //update date
+                OSDataLabels[1].setText("Date: " +  time1);  //update date display
+                
+                String time2 = sdf2.format(date);  //update time 
+                OSDataLabels[2].setText(time2);  //update time display
+            }  
+        };  
+        
+        Timer timer = new Timer(1000, timeListener); //update stuff ever 1 second
+        timer.start(); //start the timer
     }
     
     //Create the frame of the OS
@@ -91,12 +146,30 @@ public class Controller {
                 file.addSeparator(); //Add a separator to make things pretty
         file.add(exit); //Add the history tab to the file Menu
 
-        menu.add(file);
+        menu.add(file); //Add the file to the menu
     }
     
-    private void addLayout(JFrame frame, JMenuBar menu)
+    private void addLayout(JFrame frame, JMenuBar menu, JPanel toolPanel,
+                            JLabel[] ToolData)
     {
-        frame.add(BorderLayout.NORTH, menu);  
+        //Add the menu to the top of the layout 
+        frame.add(BorderLayout.NORTH, menu);
+        
+        toolPanel.setBackground(Color.magenta); //change the toolPanel's color
+        
+        //Add the toolBarPanel to the bottom of the layout
+        frame.add(BorderLayout.SOUTH, toolPanel);
+        
+        //Set color for labels (It is darkgrey by default)
+        for(int i = 0; i < ToolData.length; i++)
+        {
+            ToolData[i].setForeground(Color.white);
+        }
+        
+        toolPanel.add(ToolData[0]); //Add the version
+        toolPanel.add(ToolData[1]); //Add the date
+        toolPanel.add(ToolData[2]); //Add the time
+       
+        frame.setVisible(true); //update the layout
     }
-    
 }

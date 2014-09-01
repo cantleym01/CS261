@@ -7,6 +7,5 @@ public class HistoryTab extends JMenuItem implements Command
     public void execute()
     {
         //History logic
-        System.out.print("Hello");
     }
 }
