@@ -6,26 +6,21 @@
 
 package s.w.os;
 
-import javax.swing.JFrame; //create the frame of the OS
-import javax.swing.JLabel; //make labels, such as Time and Date
-import javax.swing.JPanel; //Panels to do things
-import javax.swing.JMenu; //Menu for things such as File
-import javax.swing.JMenuBar; //The bar to hold all of the Menu items
-import javax.swing.JMenuItem; //Sub items, like an exit command in the File Menu
-import java.awt.BorderLayout; //Use this to add layout for the OS
-import java.awt.Color;
-
-//stuff to update time and date as the OS runs
-import javax.swing.Timer;
-import java.util.Date;  
-
-//Event Items
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-//imports to keep track of the date and time
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.awt.BorderLayout; //create the frame of the OS
+import java.awt.Color; //make labels, such as Time and Date
+import java.awt.event.ActionEvent; //Panels to do things
+import java.awt.event.ActionListener; //Menu for things such as File
+import java.text.SimpleDateFormat; //The bar to hold all of the Menu items
+import java.util.Calendar; //Sub items, like an exit command in the File Menu
+import java.util.Date; //Use this to add layout for the OS
+import javax.swing.ImageIcon; //This allows the use of images
+import javax.swing.JFrame; //Create the frame
+import javax.swing.JLabel;  //Make Labels
+import javax.swing.JMenu; //Menu such as file
+import javax.swing.JMenuBar; //Menu bar to hold menus
+import javax.swing.JMenuItem; //Submenus for menus such as file
+import javax.swing.JPanel; //Panels to make better design
+import javax.swing.Timer; //Timer to update date and time as the OS runs
 
 public class Controller {
     
@@ -73,6 +68,21 @@ public class Controller {
         
         //update the date and time as the OS runs
         updateDateAndTime(sdf1, sdf2, OSDataLabels);
+        
+        //Add a panel to the center
+        //I'm adding panels to divide everything, and make it all nicely separate
+        JPanel OpenSpace = new JPanel();
+        OpenSpace.setBackground(Color.BLACK);
+        OSFrame.add(BorderLayout.CENTER, OpenSpace);//Add the panel to the center
+                                    //(the center takes up all unused space)
+        
+        //Load an image as the OSbackground and apply it to the Panel at the center
+        ImageIcon OSBkg = new ImageIcon(getClass().getResource("OSBkg.jpg"));
+        JLabel Bkg = new JLabel();  
+        Bkg.setIcon(OSBkg);  
+        OpenSpace.add(Bkg); 
+        
+        OSFrame.setVisible(true); //Update display
     }
     
     private void Initialize(JFrame frame, JMenuBar menu, JMenu file, JPanel toolPanel,
@@ -155,7 +165,7 @@ public class Controller {
         //Add the menu to the top of the layout 
         frame.add(BorderLayout.NORTH, menu);
         
-        toolPanel.setBackground(Color.magenta); //change the toolPanel's color
+        toolPanel.setBackground(Color.BLACK); //change the toolPanel's color
         
         //Add the toolBarPanel to the bottom of the layout
         frame.add(BorderLayout.SOUTH, toolPanel);
@@ -169,7 +179,5 @@ public class Controller {
         toolPanel.add(ToolData[0]); //Add the version
         toolPanel.add(ToolData[1]); //Add the date
         toolPanel.add(ToolData[2]); //Add the time
-       
-        frame.setVisible(true); //update the layout
     }
 }
