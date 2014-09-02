@@ -1,7 +1,6 @@
 package s.w.os;
 
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JFrame;
 
@@ -9,7 +8,6 @@ import javax.swing.JFrame;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class HelpTab extends JMenuItem implements Command
 {
@@ -34,7 +32,7 @@ public class HelpTab extends JMenuItem implements Command
             
             while ((currentLine = reader.readLine()) != null) //read until end of file
             {
-                helpTxt.append(currentLine + "\n");
+                helpTxt.append(currentLine + "\n"); //append the new line to the text area
             }
             reader.close();
         }

@@ -1,6 +1,0 @@
-V.0.0.1
--File: File is a menu item, that when clicked, brings up more options, you have used it correctly, as you have stumbled upon the "Help" button, which is a sub-menu of File.
--Directory: Bring up a display of the current files that (for the moment) contains the files for the OS's own directory.
--History: Bring up a display of the last 20 interactions the user (you, I would hope) has had with the OS since it's start up.
--Help: Display a short explaination for all available interactions that the user can have with the OS (you are here).
--Exit: Close the OS from this tab, you can cancel it by selecting "No" or "Cancel".

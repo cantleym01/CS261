@@ -14,7 +14,7 @@ public class ExitTab extends JMenuItem implements Command
         //get whether or not to close the OS
         int query = JOptionPane.showConfirmDialog(frame, "Are you sure?");
 
-        //if result == 0, that means "Yes" was chosen
+        //if result == 0, that means "Yes" was chosen, else nothing happens
         if (query == 0)
         {
             System.exit(0);

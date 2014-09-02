@@ -24,7 +24,7 @@ public class Controller {
     
     JPanel OSToolBarPanel = new JPanel(); //The panel for the bottom of the OS
     
-    String OSVer = "Ver 0.0.1";
+    String OSVer = "Ver 0.0.1"; //The current version, change as deemed needed
     
     //constructor
     public Controller ()
@@ -45,15 +45,16 @@ public class Controller {
         OSDataStr [0] = OSVer; //the version of the OS
                 
         Calendar cal1 = Calendar.getInstance(); //create calendar obj
-        cal1.getTime(); //get the time data (includes date as well
-    	SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/YYYY"); //get format
+        cal1.getTime(); //get the time data (includes date as well)
+    	SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/YYYY"); //get format (Month/Day/Year
     	OSDataStr[1] = "Date: " + sdf1.format(cal1.getTime()); //put the date into the data
         
         Calendar cal2 = Calendar.getInstance(); //create calendar obj
-        cal2.getTime(); //get the time data (includes date as well
-        SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm a"); //get format
+        cal2.getTime(); //get the time data (includes date as well)
+        SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm a"); //get format (Hour:Minute AM/PM)
     	OSDataStr[2] = "Time: " + sdf2.format(cal2.getTime()); //put the time into the data
         
+        //Name each label: 0 = version, 1 = date, 2 = time
         for (int i = 0; i < OSDataStr.length; i++)
         {
             OSDataLabels[i] = new JLabel(OSDataStr[i]); //name the labels
@@ -73,7 +74,7 @@ public class Controller {
                                     //(the center takes up all unused space)
         
         //Load an image as the OSbackground and apply it to the Panel at the center
-        ImageIcon OSBkg = new ImageIcon(getClass().getResource("OSBkg.jpg"));
+        ImageIcon OSBkg = new ImageIcon("OSBkg.jpg");
         JLabel Bkg = new JLabel();  
         Bkg.setIcon(OSBkg);  
         OpenSpace.add(Bkg); 
