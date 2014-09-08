@@ -9,5 +9,7 @@ public class OSFrame extends JFrame
     public OSFrame()
     {   
         setSize(FrameW, FrameH); //set the size of the frame
+        setTitle("S&W OS"); //set the title
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     } 
 }

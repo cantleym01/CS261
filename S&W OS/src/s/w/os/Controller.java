@@ -16,15 +16,23 @@ import java.util.Calendar; //Sub items, like an exit command in the File Menu
 import java.util.Date; //Use this to add layout for the OS
 import javax.swing.ImageIcon; //This allows the use of images
 
-public class Controller {
+public class Controller 
+{    
+    private JFrame OSFrame = new OSFrame(); //create the frame object
     
-    JFrame OSFrame = new OSFrame(); //create the frame object
+    private JMenuBar OSMenu = new JMenuBar(); //create the menuBar object
     
-    JMenuBar OSMenu = new JMenuBar(); //create the menuBar object
+    private JPanel OSToolBarPanel = new JPanel(); //The panel for the bottom of the OS
     
-    JPanel OSToolBarPanel = new JPanel(); //The panel for the bottom of the OS
+    private String OSVer = "Ver 0.0.1"; //The current version, change as deemed needed
     
-    String OSVer = "Ver 0.0.1"; //The current version, change as deemed needed
+    //Create the "File" App for the menu bar, it holds commands such as:
+    //Open Directory, History, Help, and Exit (maybe also Aliasing in the future)
+    private JMenu file = new JMenu("File");
+    
+    //Create the "PCBCommands" App for the menu bar, it holds commands such as:
+    //CreatePCB, DeletePCB, Block, Unblock, Suspend, Resume, etc.
+    private JMenu PCBCommands = new JMenu("PCBCommands");
     
     //constructor
     public Controller ()
@@ -33,12 +41,8 @@ public class Controller {
     
     //Run the OS
     public void runOS()
-    {
-        //Create the "File" App for the menu bar, it holds commands such as:
-        //Open Directory, History, Help, and Exit (maybe also Aliasing in the future)
-        JMenu file = new JMenu("File");
-        
-        //Now do things to get OS labels (version, date, and time)
+    {   
+        //Do things to get OS labels (version, date, and time)
         String[] OSDataStr = new String [3];//The data in string form
         JLabel[] OSDataLabels = new JLabel[3]; //The data's cooresponding labels
         
@@ -61,31 +65,21 @@ public class Controller {
         }
         
         //create the display
-        Initialize(file, OSDataLabels);
+        Initialize(OSDataLabels);
         
         //update the date and time as the OS runs
         updateDateAndTime(sdf1, sdf2, OSDataLabels);
         
-        //Add a panel to the center
-        //I'm adding panels to divide everything, and make it all nicely separate
-        JPanel OpenSpace = new JPanel();
-        OpenSpace.setBackground(Color.BLACK);
-        OSFrame.add(BorderLayout.CENTER, OpenSpace);//Add the panel to the center
-                                    //(the center takes up all unused space)
-        
-        //Load an image as the OSbackground and apply it to the Panel at the center
-        ImageIcon OSBkg = new ImageIcon("OSBkg.jpg");
-        JLabel Bkg = new JLabel();  
-        Bkg.setIcon(OSBkg);  
-        OpenSpace.add(Bkg); 
+        //apply the background image to the OS
+        applyBkg(); 
         
         OSFrame.setVisible(true); //Update display
     }
     
-    private void Initialize(JMenu file, JLabel[] ToolData)
+    private void Initialize(JLabel[] ToolData)
     {
-        createFrame(); //create the frame of the OS
-        createMenu(file); //create the menu for the OS
+        createFileMenu(); //create the file menu for the OS
+        createPCBMenu(); //create the PCB menu for the OS
         addLayout(ToolData);
     }
     
@@ -111,16 +105,8 @@ public class Controller {
         timer.start(); //start the timer
     }
     
-    //Create the frame of the OS
-    private void createFrame()
-    {
-        OSFrame.setTitle("S&W OS"); //set the title
-        OSFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        OSFrame.setVisible(true); //make it visible
-    }
-    
-    //Create the menu for the OS
-    private void createMenu(JMenu file)
+    //Create the file menu for the OS
+    private void createFileMenu()
     {   
         ActionListener listener = new MenuTabListener(); //listener for the tabs
         
@@ -155,6 +141,14 @@ public class Controller {
         OSMenu.add(file); //Add the file to the menu
     }
     
+    //Create the PCB menu for the OS
+    private void createPCBMenu()
+    {   
+        ActionListener listener = new MenuTabListener(); //listener for the tabs
+
+        OSMenu.add(PCBCommands); //Add the PCBCommands to the menu
+    }
+    
     private void addLayout(JLabel[] ToolData)
     {
         //Add the menu to the top of the layout 
@@ -174,5 +168,22 @@ public class Controller {
         OSToolBarPanel.add(ToolData[0]); //Add the version
         OSToolBarPanel.add(ToolData[1]); //Add the date
         OSToolBarPanel.add(ToolData[2]); //Add the time
+    }
+    
+    //apply the background image to the OS
+    private void applyBkg()
+    {           
+        //Add a panel to the center
+        //I'm adding panels to divide everything, and make it all nicely separate
+        JPanel OpenSpace = new JPanel();
+        OpenSpace.setBackground(Color.BLACK);
+        OSFrame.add(BorderLayout.CENTER, OpenSpace);//Add the panel to the center
+                                        //(the center takes up all unused space)
+
+        //Load an image as the OSbackground and apply it to the Panel at the center
+        ImageIcon OSBkg = new ImageIcon("OSBkg.jpg");
+        JLabel Bkg = new JLabel();  
+        Bkg.setIcon(OSBkg);  
+        OpenSpace.add(Bkg); 
     }
 }

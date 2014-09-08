@@ -5,14 +5,15 @@
         <group>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/MenuTabListener.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/ExitTab.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSToolBarPanel.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/Command.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/SWOS.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/DirectoryTab.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSDirFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/HelpTab.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/HistoryTab.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/Controller.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSHelpFrame.java</file>
         </group>
     </open-files>
 </project-private>
