@@ -1,11 +1,13 @@
 package s.w.os;
 
-import static javax.lang.model.type.TypeKind.NULL;
-
 public class PCBList 
 {
-    PCBBlockedQueue blockedQueue; //the blockedQueue of PCB's
-    PCBReadyQueue readyQueue; //the readyQueue of PCB's
+    PCBBlockedQueue blockedQueue = new PCBBlockedQueue(); //the blockedQueue of PCB's
+    PCBReadyQueue readyQueue = new PCBReadyQueue(); //the readyQueue of PCB's
+    
+    //A "null" pcb
+    PCB NULL = new PCB();
+    
     
     public PCB AllocatePCB()
     {
@@ -21,13 +23,12 @@ public class PCBList
         PCBToUnallocateMemory.memoryValue = 0; //memory = 0
     }
     
-    public void SetupPCB(String Name, int Priority, int Class)
+    public void SetupPCB(String Name, int Class, int Priority)
     {
         //see if it is already in the queues
-        if (FindPCB(Name) == NULL) //if it is not, create a new one
+        if (FindPCB(Name).processName == "NULL") //if it is not, create a new one
         {
             PCB newPCB = AllocatePCB(); //allocate the new PCB
-            
             //check for valid priorities
             Boolean validPriority = false; //use to see if the priority is valid
             for (int i = 0; i < 256; i++)
@@ -49,6 +50,8 @@ public class PCBList
                 return;
             }
             
+            System.out.println(Class);
+            
             if (Class == 0 || Class == 1)//if the Class is valid, assign it
             {
                 newPCB.processClass = Class;
@@ -60,12 +63,14 @@ public class PCBList
                 return;
             }
             
+            newPCB.processName = Name; //give the name to the PCB
+            
             //everything has been good if this point is reached.
             //now just push it to the ready queue and set it to not suspended
             newPCB.suspendedState = false; //it is not suspended
             readyQueue.insertPCB(newPCB);
         }
-        else
+        else //it already exists
         {
             //error message
             System.out.println("PCB already exists.");
@@ -73,18 +78,19 @@ public class PCBList
         }
     }
         
-    public Object FindPCB(String PCBNameToFind) //Returns an obj, since it can return PCB or NULL
+    public PCB FindPCB(String PCBNameToFind) //Returns an obj, since it can return PCB or null
     {
         //since we are not using the obj reference, we need to search the queues
-        
         //first, search the readyQueue, by first checking if it has atleast 1 PCB
-        if (readyQueue.isEmpty() != true)
+        if (readyQueue.size() >= 1)
         {
             for (int i = 0; i < readyQueue.numberOfPCBs(); i++)
             {
                 //first we create a comparePCB to see if it's name is the one we're looking for
-                PCB comparePCB;
+                PCB comparePCB = new PCB();
                 comparePCB = (PCB) readyQueue.get(i); //cast the obj to a PCB
+                System.out.println(comparePCB.processName);
+                
                 
                 if (comparePCB.processName == PCBNameToFind)
                 {
@@ -100,12 +106,13 @@ public class PCBList
                 PCB comparePCB;
                 comparePCB = (PCB) blockedQueue.get(i); //cast the obj to a PCB
                 
-                if (comparePCB.processName == PCBNameToFind)
+                if (comparePCB.processName.equals(PCBNameToFind))
                 {
                     return comparePCB; //the PCB was found, so return it
                 }
             }
         }
+        NULL.processName = "NULL";
         return NULL; //default return if nothing is returned before now
     }
     
@@ -114,11 +121,11 @@ public class PCBList
     {
         if (ReadyOrBlocked == 0) //insert to readyQueue
         {
-            readyQueue.insertPCB(PCBToInsert);
+            readyQueue.add(PCBToInsert);
         }
         else if (ReadyOrBlocked == 1) //insert to blockedQueue
         {
-            blockedQueue.insertPCB(PCBToInsert);
+            blockedQueue.add(PCBToInsert);
         } 
         else //something is wrong here
         {
@@ -128,7 +135,7 @@ public class PCBList
 
     public void removePCB(PCB PCBToRemove)
     {
-        if (FindPCB(PCBToRemove.processName) != NULL)
+        if (FindPCB(PCBToRemove.processName).processName != "NULL")
         {
             PCB PCBToRemoveVer2;
             PCBToRemoveVer2 = (PCB) FindPCB(PCBToRemove.processName); //get the PCB

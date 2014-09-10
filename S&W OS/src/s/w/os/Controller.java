@@ -34,6 +34,8 @@ public class Controller
     //CreatePCB, DeletePCB, Block, Unblock, Suspend, Resume, etc.
     private JMenu PCBCommands = new JMenu("PCBCommands");
     
+    private PCBList PCBList = new PCBList(); //create the list of PCBs (includes queues)
+    
     //constructor
     public Controller ()
     {
@@ -141,12 +143,32 @@ public class Controller
         OSMenu.add(file); //Add the file to the menu
     }
     
-    //Create the PCB menu for the OS
+    //Create the PCBCommands menu for the OS
     private void createPCBMenu()
     {   
-        ActionListener listener = new MenuTabListener(); //listener for the tabs
+        //This listener does not have a seperate file for command design pattern,
+        //because the PCBList needs to be modified with the PCB commands.
+        ActionListener listener = new
+            //override the ActionListner's actionPerformed for this button
+            ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    CommandPCB command = (CommandPCB)e.getSource();
+                    PCBList = command.execute(PCBList); //get all changes
+                }
+            };
+        
+        //Create the Directory button for the file menu
+        JMenuItem createPCB = new CreatePCB();
+        createPCB.setLabel("Create PCB"); //set tab name
+        createPCB.addActionListener(listener); //add a listener to the tab
+        
+        PCBCommands.add(createPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
 
-        OSMenu.add(PCBCommands); //Add the PCBCommands to the menu
+        OSMenu.add(PCBCommands); //Add the file to the menu
     }
     
     private void addLayout(JLabel[] ToolData)
