@@ -5,33 +5,32 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-public class CreatePCB extends JMenuItem implements CommandPCB
+public class SetPriorityPCB extends JMenuItem implements CommandPCB
 {
     //create the variables for the data (they have to be outside, otherwise listeners cannot modify them)
     private String ProcessName = "";
-    private String Class = "";
     private String Priority = "";
     
     @Override
     public PCBList execute(PCBList list)
     {
-        //initialize these to numbers that are not valid
-        int ClassID = 5;
+        //initialize this to a number that is not valid
         int PriorityVal = 200;
         
         //make a frame to contain the OptionPane
         JFrame inputFrame = new JFrame();
         inputFrame.setSize(500, 100); //width, height
         
-        JTextArea errorMsg = new JTextArea(); //error message if a value is not good
-        errorMsg.append("That value is not acceptable");
+        JTextArea errorMsg = new JTextArea(); //error message
+        String message1 = "That PCB priority has not been set somehow.";
+        String message2 = "That PCB priority has been set.";
        
         //keep trying to get the name
         while (true) 
         {
             //get the name
             ProcessName = (String)JOptionPane.showInputDialog(inputFrame, 
-               "Enter a PCB name. \n"
+               "Enter a PCB name to set it's priority. \n"
             + "and type \"Quit\" to stop input");
 
             //if the conditions were met, exit the loop the conditions are to be:
@@ -41,36 +40,9 @@ public class CreatePCB extends JMenuItem implements CommandPCB
             {
                 return list;
             }
-            if((ProcessName.length() >= 1) && ("NULL".equals(list.FindPCB(ProcessName).processName)))
+            if((ProcessName.length() >= 1) && (!"NULL".equals(list.FindPCB(ProcessName).processName)))
             {
                 break;
-            }
-        }
-        
-       //keep trying to get the class
-        while (true)
-        {
-            //get the Class
-            Class = (String)JOptionPane.showInputDialog(inputFrame, 
-                   "Enter a Class Type:\n"
-                + "Valid ones are \"Sys\" or \"System\" \n"
-                + "and even \"App\" or \"Application\""
-                + "and type \"Quit\" to stop input");
-            
-            //check for inputs, if they are not valid, ask again
-            if("Application".equals(Class) || "App".equals(Class) || "application".equals(Class) || "app".equals(Class))
-            {
-                ClassID = 0;
-                break;
-            }
-            if ("System".equals(Class) || "Sys".equals(Class) || "system".equals(Class) || "sys".equals(Class))
-            {
-                ClassID = 1;
-                break;
-            }
-            if ("Quit".equals(Class) || "quit".equals(Class))
-            {
-                return list;
             }
         }
         
@@ -99,7 +71,21 @@ public class CreatePCB extends JMenuItem implements CommandPCB
             }
         }
         
-        list.SetupPCB(ProcessName, ClassID, PriorityVal); //setup the PCB
+        list.FindPCB(ProcessName).priority = PriorityVal; //setup the PCB
+        
+        //see if the PCB has been suspended
+        if (list.FindPCB(ProcessName).priority == PriorityVal) //it has been assigned it's priority
+        {
+            errorMsg.append(message2);
+            inputFrame.add(errorMsg);
+        }
+        else //it failed somehow
+        {
+            errorMsg.append(message1);
+            inputFrame.add(errorMsg);
+        }
+        
+        inputFrame.setVisible(true); //so user can see it
         
         return list; //return the list with all of it's changes
     }

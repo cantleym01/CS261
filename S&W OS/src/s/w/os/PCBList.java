@@ -50,8 +50,6 @@ public class PCBList
                 return;
             }
             
-            System.out.println(Class);
-            
             if (Class == 0 || Class == 1)//if the Class is valid, assign it
             {
                 newPCB.processClass = Class;
@@ -82,17 +80,15 @@ public class PCBList
     {
         //since we are not using the obj reference, we need to search the queues
         //first, search the readyQueue, by first checking if it has atleast 1 PCB
-        if (readyQueue.size() >= 1)
+        if (readyQueue.numberOfPCBs() >= 1)
         {
             for (int i = 0; i < readyQueue.numberOfPCBs(); i++)
             {
                 //first we create a comparePCB to see if it's name is the one we're looking for
                 PCB comparePCB = new PCB();
                 comparePCB = (PCB) readyQueue.get(i); //cast the obj to a PCB
-                System.out.println(comparePCB.processName);
                 
-                
-                if (comparePCB.processName == PCBNameToFind)
+                if (comparePCB.processName.equals(PCBNameToFind))
                 {
                     return comparePCB; //the PCB was found, so return it
                 }
@@ -135,7 +131,7 @@ public class PCBList
 
     public void removePCB(PCB PCBToRemove)
     {
-        if (FindPCB(PCBToRemove.processName).processName != "NULL")
+        if (PCBToRemove.processName.equals(FindPCB(PCBToRemove.processName).processName))
         {
             PCB PCBToRemoveVer2;
             PCBToRemoveVer2 = (PCB) FindPCB(PCBToRemove.processName); //get the PCB

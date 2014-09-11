@@ -34,7 +34,7 @@ public class Controller
     //CreatePCB, DeletePCB, Block, Unblock, Suspend, Resume, etc.
     private JMenu PCBCommands = new JMenu("PCBCommands");
     
-    private PCBList PCBList = new PCBList(); //create the list of PCBs (includes queues)
+    private PCBList pcbList = new PCBList(); //create the list of PCBs (includes queues)
     
     //constructor
     public Controller ()
@@ -156,17 +156,86 @@ public class Controller
                 public void actionPerformed(ActionEvent e)
                 {
                     CommandPCB command = (CommandPCB)e.getSource();
-                    PCBList = command.execute(PCBList); //get all changes
+                    pcbList = command.execute(pcbList); //get all changes
                 }
             };
         
-        //Create the Directory button for the file menu
+        //Create the Create PCB button for the PCBCommand menu
         JMenuItem createPCB = new CreatePCB();
         createPCB.setLabel("Create PCB"); //set tab name
         createPCB.addActionListener(listener); //add a listener to the tab
         
+        //Create the Delete PCB button for the PCBCommand menu
+        JMenuItem deletePCB = new DeletePCB();
+        deletePCB.setLabel("Delete PCB"); //set tab name
+        deletePCB.addActionListener(listener); //add a listener to the tab
+               
+        //Create the Block PCB button for the PCBCommand menu
+        JMenuItem blockPCB = new BlockPCB();
+        blockPCB.setLabel("Block PCB"); //set tab name
+        blockPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the un-Block PCB button for the PCBCommand menu
+        JMenuItem unBlockPCB = new UnBlockPCB();
+        unBlockPCB.setLabel("Un-Block PCB"); //set tab name
+        unBlockPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the suspend PCB button for the PCBCommand menu
+        JMenuItem suspendPCB = new SuspendPCB();
+        suspendPCB.setLabel("Suspend PCB"); //set tab name
+        suspendPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the resume PCB button for the PCBCommand menu
+        JMenuItem resumePCB = new ResumePCB();
+        resumePCB.setLabel("Resume PCB"); //set tab name
+        resumePCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the set priority PCB button for the PCBCommand menu
+        JMenuItem setPriorPCB = new SetPriorityPCB();
+        setPriorPCB.setLabel("Set PCB Priority"); //set tab name
+        setPriorPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the show PCB button for the PCBCommand menu
+        JMenuItem showPCB = new ShowPCB();
+        showPCB.setLabel("Show PCB"); //set tab name
+        showPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the show all PCB button for the PCBCommand menu
+        JMenuItem showAllPCB = new ShowAllPCB(0); //show all
+        showAllPCB.setLabel("Show All PCB"); //set tab name
+        showAllPCB.addActionListener(listener); //add a listener to the tab
+        
+        //Create the show all PCB button for the PCBCommand menu
+        JMenuItem showReadyPCB = new ShowAllPCB(1); //show all
+        showReadyPCB.setLabel("Show Ready PCB"); //set tab name
+        showReadyPCB.addActionListener(listener); //add a listener to the tab
+      
+        //Create the show all PCB button for the PCBCommand menu
+        JMenuItem showBlockedPCB = new ShowAllPCB(2); //show all
+        showBlockedPCB.setLabel("Show Blocked PCB"); //set tab name
+        showBlockedPCB.addActionListener(listener); //add a listener to the tab
+        
         PCBCommands.add(createPCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(deletePCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(blockPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(unBlockPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(suspendPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(resumePCB); //Add the directory tab to the file Menu
+               PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(setPriorPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(showPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(showAllPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(showReadyPCB); //Add the directory tab to the file Menu
+                PCBCommands.addSeparator(); //Add a separator to make things pretty
+        PCBCommands.add(showBlockedPCB); //Add the directory tab to the file Menu
 
         OSMenu.add(PCBCommands); //Add the file to the menu
     }
