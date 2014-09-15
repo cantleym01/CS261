@@ -19,7 +19,7 @@ public class BlockPCB extends JMenuItem implements CommandPCB
         
         JTextArea errorMsg = new JTextArea(); //error message
         String message1 = "That PCB has not been blocked somehow.";
-        String message2 = "That PCB has been blocked.";
+        String message2 = "That PCB is blocked.";
        
         //keep trying to get the name
         while (true) 

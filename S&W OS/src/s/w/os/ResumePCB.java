@@ -19,7 +19,7 @@ public class ResumePCB extends JMenuItem implements CommandPCB
         
         JTextArea errorMsg = new JTextArea(); //error message
         String message1 = "That PCB is still suspended somehow.";
-        String message2 = "That PCB has been un-suspended.";
+        String message2 = "That PCB is un-suspended.";
        
         //keep trying to get the name
         while (true) 

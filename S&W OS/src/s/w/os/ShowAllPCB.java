@@ -24,7 +24,7 @@ public class ShowAllPCB extends JMenuItem implements CommandPCB
     {
         //make a frame to contain the OptionPane
         JFrame inputFrame = new JFrame();
-        inputFrame.setSize(200, 300); //width, height
+        inputFrame.setSize(300, 300); //width, height
         
         //add a scrollbar to output
         JPanel display = new JPanel();
@@ -32,7 +32,7 @@ public class ShowAllPCB extends JMenuItem implements CommandPCB
         
         JTextArea PCBshow = new JTextArea(); //text area to show the pcb stuff
         //initialize some stuff that will always be there
-        PCBshow.append("Output in this order: \n Name, Memory, Priority, Suspended State, and then Class:\n");
+        PCBshow.append("Output in this order: \n   Name, Memory, Priority, Suspended State, and then Class:\n");
         
         //variables for data
         int allocatedMem = 0;
@@ -136,7 +136,7 @@ public class ShowAllPCB extends JMenuItem implements CommandPCB
             
         //add the PCBshow text to the display
         display.add(PCBshow); //herpDerp
-        inputFrame.add(BorderLayout.WEST, keepOnScrollinScrollinScrollin);
+        inputFrame.add(BorderLayout.CENTER, keepOnScrollinScrollinScrollin);
         
         inputFrame.setVisible(true); //so user can see it
         

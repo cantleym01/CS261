@@ -26,20 +26,12 @@ public class PCBList
     public void SetupPCB(String Name, int Class, int Priority)
     {
         //see if it is already in the queues
-        if (FindPCB(Name).processName == "NULL") //if it is not, create a new one
+        if ("NULL".equals(FindPCB(Name).processName)) //if it is not, create a new one
         {
             PCB newPCB = AllocatePCB(); //allocate the new PCB
-            //check for valid priorities
-            Boolean validPriority = false; //use to see if the priority is valid
-            for (int i = 0; i < 256; i++)
-            {
-                if (newPCB.priorityAry[i] == Priority) //is the priority in accepted lenghts?
-                {
-                    validPriority = true;
-                }
-            }
             
-            if (validPriority == true) //if it is accepted, continue
+            //check for valid priorities
+            if (Priority >= -127 && Priority <= 128) //if it is accepted, continue
             {
                 newPCB.priority = Priority;
             }

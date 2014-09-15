@@ -161,7 +161,7 @@ public class Controller
             };
         
         //Create the Create PCB button for the PCBCommand menu
-        JMenuItem createPCB = new CreatePCB();
+        /*JMenuItem createPCB = new CreatePCB();
         createPCB.setLabel("Create PCB"); //set tab name
         createPCB.addActionListener(listener); //add a listener to the tab
         
@@ -178,7 +178,7 @@ public class Controller
         //Create the un-Block PCB button for the PCBCommand menu
         JMenuItem unBlockPCB = new UnBlockPCB();
         unBlockPCB.setLabel("Un-Block PCB"); //set tab name
-        unBlockPCB.addActionListener(listener); //add a listener to the tab
+        unBlockPCB.addActionListener(listener); //add a listener to the tab     */
         
         //Create the suspend PCB button for the PCBCommand menu
         JMenuItem suspendPCB = new SuspendPCB();
@@ -215,14 +215,14 @@ public class Controller
         showBlockedPCB.setLabel("Show Blocked PCB"); //set tab name
         showBlockedPCB.addActionListener(listener); //add a listener to the tab
         
-        PCBCommands.add(createPCB); //Add the directory tab to the file Menu
+        /*PCBCommands.add(createPCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
         PCBCommands.add(deletePCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
         PCBCommands.add(blockPCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
         PCBCommands.add(unBlockPCB); //Add the directory tab to the file Menu
-                PCBCommands.addSeparator(); //Add a separator to make things pretty
+                PCBCommands.addSeparator(); //Add a separator to make things pretty */
         PCBCommands.add(suspendPCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
         PCBCommands.add(resumePCB); //Add the directory tab to the file Menu

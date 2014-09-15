@@ -19,7 +19,7 @@ public class UnBlockPCB extends JMenuItem implements CommandPCB
         
         JTextArea errorMsg = new JTextArea(); //error message
         String message1 = "That PCB has not been made ready somehow.";
-        String message2 = "That PCB has been made ready.";
+        String message2 = "That PCB is ready.";
        
         //keep trying to get the name
         while (true) 

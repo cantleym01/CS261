@@ -1,22 +1,22 @@
 {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}}
-{\*\generator Riched20 6.2.9200}\viewkind4\uc1 
-\pard\sa200\sl276\slmult1\f0\fs22\lang9 Technical Support Manual for the S&W OS\par
-Table of Contents:\par
+{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\ul\i\f0\fs22\lang9 Technical Support Manual for the S&W OS\par
+
+\pard\sa200\sl276\slmult1\ulnone\b Table of Contents:\b0\i0\par
 \tab 1) Overview of Program\par
 \tab 2) Program Structure\par
 \tab 3) Descrption of Each Function\par
 \tab 4) Description of Data Structures\par
 \tab 5) Global Variables\par
 \tab 6) Cross References\par
-1) Overview of Program:\par
-\tab The S&W OS is written using Java and the Swing GUI elements. Commands for the OS \tab use the command design pattern, for easy implementation and removal of new and \tab old commands in the future. Commands that bring up new information open up in \tab the form of their own frames, so that they may be customizable. The use of every \tab command that brings up information using it's own frame allows one to add new \tab features to the frame, or maybe override the .add functionality to one specific part of \tab the frame. The S&W OS also include real-time time management in the form of date \tab and time, their displays are at the bottom of the GUI in the format of: Date: \tab "mm/dd/yyyy" and Time: "hh:mm am/pm".\par
-2) Program Structure\par
-\tab a) The contents of each file:\par
+\b\i 1) Overview of Program:\par
+\b0\i0\tab The S&W OS is written using Java and the Swing GUI elements. Commands for the OS \tab use the command design pattern, for easy implementation and removal of new and \tab old commands in the future. Commands that bring up new information open up in \tab the form of their own frames, so that they may be customizable. The use of every \tab command that brings up information using it's own frame allows one to add new \tab features to the frame, or maybe override the .add functionality to one specific part of \tab the frame. The S&W OS also include real-time time management in the form of date \tab and time, their displays are at the bottom of the GUI in the format of: Date: \tab "mm/dd/yyyy" and Time: "hh:mm am/pm". The program also has pseudo-PCB \tab functionality, in that it has several user-friendly commands that simulate a PCB and \tab it's procedures.\par
+\b\i 2) Program Structure\par
+\b0\i0\tab The contents of each file:\par
 \tab\tab Command.java - a public interface with the function(s): void execute()\par
-\tab\tab Controller.java - a public class with the global variable(s): OSFrame, OSMenu, \tab\tab\tab\tab OSToolBarPanel, OSVer. And the function(s): Controller(), runOS(), \tab\tab\tab\tab Initialize(JMenu file, JLabel[] ToolData), \tab\tab\tab\tab\tab\tab\tab updateDateAndTime(SimpleDateFormat sdf1, SimpleDateFormat \tab\tab\tab\tab sdf2, JLabel OSDataLabels[]), createFrame(), createMenu(JMenu file), \tab\tab\tab addLayout(JLabel[] ToolData).\par
+\tab\tab Controller.java - a public class with the global variable(s): OSFrame, OSMenu, \tab\tab\tab\tab OSToolBarPanel, OSVer. And the function(s): Controller(), runOS(), \tab\tab\tab\tab Initialize(JLabel[] ToolData), \tab\tab\tab\tab\tab\tab  \tab\tab\tab updateDateAndTime(SimpleDateFormat sdf1, SimpleDateFormat \tab\tab\tab\tab sdf2, JLabel OSDataLabels[]), createFrame(), createMenu(), \tab\tab\tab\tab\tab addLayout(JLabel[] ToolData).\par
 \tab\tab DirectoryTab.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab Command with the function(s): an Override of execute().\par
-
-\pard\sa200\sl276\slmult1\tab\tab ExitTab.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab\tab Command with the function(s): an Override of execute().\par
+\tab\tab ExitTab.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab\tab Command with the function(s): an Override of execute().\par
 \tab\tab HelpTab.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab Command with the function(s): an Override of execute().\par
 \tab\tab HistoryTab.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab Command with the function(s): an Override of execute().\par
 \tab\tab MenuTabListener - a public class that implements ActionListener with the \tab\tab\tab\tab function(s): actionPerformed(ActionEvent e).\par
@@ -24,41 +24,27 @@ Table of Contents:\par
 \tab\tab OSFrame - a public class that extends JFrame with the global variable(s): \tab\tab\tab\tab FrameW, FrameH. And the function(s): OSFrame().\par
 \tab\tab OSHelpFrame - a public class that extends JFrame with the global variable(s): \tab\tab\tab\tab FrameW, FrameH. And the function(s): OSHelpFrame().\par
 \tab\tab SWOS - a public class with the main(String[] args)\par
-
-\pard\sa200\sl276\slmult1\tab b) List the functions/data structures and a brief description of each:\par
-
-\pard\sa200\sl276\slmult1\tab\tab void execute() - a function meant to be overwritten so that other files may \tab\tab\tab\tab use it in the Command Design Pattern.\par
-\tab\tab\tab -DirectoryTab - open a frame with the current directory's contents\par
-\tab\tab\tab -ExitTab - give the user the option to quit and proceed with the choice\par
-\tab\tab\tab -HelpTab - give a short summary of all the availiable commands, it is \tab\tab\tab\tab\tab read from a file named "help.txt" \par
-\tab\tab\tab -HistoryTab - open a frame and display the last 20 valid commands. \tab\tab\tab\tab\tab (does not work currently)\par
-\tab\tab Controller() - the constructor for the Controller.\par
-\tab\tab runOS() - run the Controller's functions, this is the only function for main.\par
-\tab\tab Initialize(JMenu file, JLabel[] ToolData) - initialize the OS and it's display. \par
-\tab\tab updateDateAndTime(SimpleDateFormat sdf1, SimpleDateFormat sdf2, JLabel \tab\tab\tab\tab\tab\tab OSDataLabels[]) - update time and date in real-time.\par
- \tab\tab createFrame() - create the frame for the OS.\par
-\tab\tab  createMenu(JMenu file) - create the menuBar for the OS.\par
-\tab\tab  addLayout(JLabel[] ToolData) - combine the components, called in the \tab\tab\tab\tab Initialize(JMenu file, JLabel[] ToolData) function.\par
-\tab\tab actionPerformed(ActionEvent e) - execute the command for the chosen \tab\tab\tab\tab menu tab.\par
-\tab\tab OSDirFrame() - the constructor for OSDirFrame and sets the size of the frame\par
-\tab\tab OSFrame() - the constructor for OSFrame and sets the size of the frame\par
-\tab\tab OSHelpFrame() - the constructor for the OSHelpFrame, it sets the size of the \tab\tab\tab\tab frame, and it sets a left-oriented flow layout to the frame \par
-\tab\tab main(String[] args) - create a controller object and run it\par
-
-\pard\sa200\sl276\slmult1 3) Description of each function:\par
-
-\pard\sa200\sl276\slmult1\lang1033\tab a) \lang9 execute()\par
+\tab\tab BlockPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab CommandPCB.java - a public interface with the function(s): void \tab\tab\tab\tab\tab execute(PCBList list).\par
+\tab\tab CreatePCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab DeletePCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab PCB.java - a public class that acts as a data structure for a PCB.\par
+\tab\tab PCBBlockedQueue.java - a public class that extends LinkedList that acts as a \tab\tab\tab\tab container/queue for the PCBs that are blocked with the function(s): \tab\tab\tab\tab numberOfPCBs() and insertPCB(PCB PCBToBeAdded).\par
+\tab\tab PCBReadyQueue.java - a public class that extends LinkedList that acts as a \tab\tab\tab\tab container/queue for the PCBs that are ready with the function(s): \tab\tab\tab\tab numberOfPCBs() and insertPCB(PCB PCBToBeAdded).\par
+\tab\tab PCBList.java - a public class meant to act as a mini-controller for all of the PCB \tab\tab\tab\tab functions (not commands) with the function(s): AllocatePCB(), \tab\tab\tab\tab FreePCB(PCB PCBToUnnallocateMemory), SetupPCB(String Name, int \tab\tab\tab\tab Class, int Priority), FindPCB(String PCBNameToFind), \tab\tab\tab\tab\tab\tab insertPCBToQueue(int ReadyOrBlocked, PCB PCBToInsert), \tab\tab\tab\tab\tab removePCB(PCB PCBToRemove).\par
+\tab\tab ResumePCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab SetPriorityPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab ShowAllPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab ShowPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab SuspendPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\tab\tab UnBlockPCB.java - a public class that extends JMenuItem and implements \tab\tab\tab\tab CommandPCB with the function(s): an Override of execute(PCBList \tab\tab\tab\tab list).\par
+\b\i 3) Description of each function:\par
+\b0\i0\lang1033\tab a) \lang9 execute()\par
 \tab b) no parameters\par
 \tab c) no return value\par
 \tab d) A function meant to be overwritten so that other files may \tab\tab\tab\tab use it in the Command Design Pattern.\par
-\tab\tab -DirectoryTab - open a frame with the current directory's contents\par
-\tab\tab -ExitTab - give the user the option to quit and proceed with the choice\par
-\tab\tab -HelpTab - give a short summary of all the availiable commands, it is \tab\tab\tab\tab\tab read from a file named "help.txt" \par
-\tab\tab -HistoryTab - open a frame and display the last 20 valid commands. \tab\tab\tab\tab\tab (does not work currently)\par
-
-\pard\sa200\sl276\slmult1\lang1033 //-------------------------\par
-
-\pard\sa200\sl276\slmult1\lang9\tab a) Controller()\par
+\lang1033 //-------------------------\par
+\lang9\tab a) Controller()\par
 \tab b) no parameters\par
 \tab c) no return value\par
 \tab d) The constructor for the Controller.\par
@@ -68,8 +54,8 @@ Table of Contents:\par
 \tab c) no return value\par
 \tab d) Run the Controller's functions, this is the only function for main.\par
 \lang1033 //-------------------------\lang9\par
-\tab a) Initialize(JMenu file, JLabel[] ToolData)\par
-\tab b) parameters of JMenu file and JLabel[] ToolData, file is the main-menu tab, which \tab\tab\tab when clicked will drop down some command tabs, and ToolData is an array of \tab\tab\tab size 3 with [0] being the version number, [1] being the Date, and [2] being the \tab\tab Time.\par
+\tab a) Initialize(JLabel[] ToolData)\par
+\tab b) parameters of JLabel[] ToolData, ToolData is an array of size 3 with [0] being the \tab\tab\tab version number, [1] being the Date, and [2] being the Time.\par
 \tab c) no return value\par
 \tab d) Initialize the OS and it's display. \par
 \lang1033 //-------------------------\lang9\par
@@ -83,20 +69,15 @@ Table of Contents:\par
 \tab c) no return value\par
 \tab d) Create the frame for the OS.\par
 \lang1033 //-------------------------\lang9\par
-\tab a) createMenu(JMenu file)\par
-\tab b) parameter of JMenu file, file is the main-menu tab, which when clicked will drop \tab\tab\tab down some command tabs\par
+\tab a) createMenu()\par
+\tab b) no parameters\par
 \tab c) no return value\par
 \tab d) create the menuBar for the OS.\par
 \lang1033 //-------------------------\lang9  \par
 \tab a) addLayout(JLabel[] ToolData)\par
 \tab b) parameter of JLabel[] ToolData, ToolData is an array of size 3 with [0] being the \tab\tab\tab version number, [1] being the Date, and [2] being the Time.\par
 \tab c) no return value\par
-\tab d) combine the components, called in the Initialize(JMenu file, JLabel[] ToolData) \tab\tab\tab function.\par
-\lang1033 //-------------------------\lang9\par
-\tab a) actionPerformed(ActionEvent e)\par
-\tab b) parameter of ActionEvent e, which is the action listener\par
-\tab c) no return value\par
-\tab d) execute the command for the chosen menu tab.\par
+\tab d) combine the components, called in the Initialize(JLabel[] ToolData) \tab\tab\tab function.\par
 \lang1033 //-------------------------\lang9\par
 \tab a) OSDirFrame()\par
 \tab b) no parameters\par
@@ -112,16 +93,53 @@ Table of Contents:\par
 \tab b) no parameters\par
 \tab c) no return value\par
 \tab d) the constructor for the OSHelpFrame, it sets the size of the \tab\tab\tab\tab frame, and it sets a left-oriented flow layout to the frame \par
-
-\pard\sa200\sl276\slmult1\lang1033 //-------------------------\lang9\par
+\lang1033 //-------------------------\lang9\par
 \tab a) main(String[] args)\par
 \tab b) parameter of "String[] args"\par
-
-\pard\sa200\sl276\slmult1\tab c) no return value\par
-
-\pard\sa200\sl276\slmult1\lang1033\tab d) \lang9 create a controller object and run it\f1\par
-\f0\lang1033 4)\f1\lang9  Description of Data Structures\par
-\f0\lang1033\tab\f1\lang9 a\f0\lang1033 )\f1\lang9  \f0\lang1033 JFrame\f1\lang9\par
+\tab c) no return value\par
+\lang1033\tab d) \lang9 create a controller object and run it\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 execute(PCBList list)\par
+\tab b) parameter of "PCBList list"\par
+\tab c) returns a PCBList\par
+\tab d) A function meant to be overwritten so that other files may \tab\tab\tab\tab use it in the Command Design Pattern. This particular one is meant for PCB \tab commands.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 createPCBMenu()\par
+\tab b) no parameters\par
+\tab c) no return value\par
+\tab d) Create the list of commands for the PCB menu.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 AllocatePCB()\par
+\tab b) no parameters\par
+\tab c) returns a PCB\par
+\tab d) Create a new PCB and set it to a default memory value.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 FreePCB(PCB PCBToUnallocateMemory)\par
+\tab b) parameter of "PCB PCBToUnallocateMemory"\par
+\tab c) returns a PCB\par
+\tab d) This function is simply meant to set a PCB's memory to 0.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 SetupPCB(StringName, int Class, int Priority)\par
+\tab b) parameters of StringName, int Class, and int Priority\par
+\tab c) no return value\par
+\tab d) A function meant to create a PCB and put it in the ready queue with user-defined \tab data.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 FindPCB(String PCBNameToFind) \par
+\tab b) parameter of String PCBNameToFind\par
+\tab c) returns a PCB\par
+\tab d) A function meant to find a PCB with a user-specified name, and either return that \tab PCB, or a default "NULL" PCB if it is not found.\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 insertPCBToQueue(int ReadyOrBlocked, PCB PCBToInsert) \par
+\tab b) parameter of int ReadyOrBlocked and PCB PCBToInsert\par
+\tab c) returns nothing\par
+\tab d) A function meant to insert a PCB into the Ready or Blocked Queue\par
+\lang1033 //-------------------------\lang9\par
+\lang1033\tab a) \lang9 removePCB(PCB PCBToRemove) \par
+\tab b) parameter of PCB PCBToRemove\par
+\tab c) returns nothing\par
+\tab d) A function that will remove a PCB from the Ready or Blocked Queue.\par
+\b\i\lang1033 4)\f1\lang9  Description of Data Structures\par
+\b0\i0\f0\lang1033\tab\f1\lang9 a\f0\lang1033 )\f1\lang9  \f0\lang1033 JFrame\f1\lang9\par
 \f0\lang1033\tab\f1\lang9 b\f0\lang1033 )\f1\lang9  \f0\lang1033 Give a display to something, since JFrame is a high-level component\par
 //-------------------------\par
 \tab a) JPanel\par
@@ -139,27 +157,46 @@ Table of Contents:\par
 \tab a) Strings\par
 \tab b) Set JLabels, append the directory files\par
 //-------------------------\par
-\tab a) File\par
-\tab b) Hold all of the filenames in a directory\par
+\tab a) PCB\par
+\tab b) Hold the data for the Process Control Block\par
 //-------------------------\par
-\tab a) Timer\par
-\tab b) Keep track of time to update every 1 second\par
-5) \f1\lang9 Global Variables (if any)\par
-\f0\lang1033\tab OSFrame in Controller.java - The frame for the OS, it is manipulated much in the \tab\tab\tab controller, so it saves space and function parameter size to make it global.\par
+\tab a) PCBReadyQueue\par
+\tab b) An extension of a linked list, used to store all PCBs that are ready.\par
+//-------------------------\par
+\tab a) PCBBlockedQueue\par
+\tab b) An extension of a linked list, used to store all PCBs that are blocked.\par
+\b\i 5) \f1\lang9 Global Variables (if any)\par
+\b0\i0\f0\lang1033\tab OSFrame in Controller.java - The frame for the OS, it is manipulated much in the \tab\tab\tab controller, so it saves space and function parameter size to make it global.\par
 \tab OSMenu in Controller.java - Like the OS, it saves space and function parameter size.\par
 \tab OSToolBarPanel in Controller.java - It is used to take a bottom portion of the \tab\tab\tab\tab OSFrame, so having it global makes it easier to manipulate.\par
 \tab OSVer in Controller.java - Having this one global is not necessary, but it makes it \tab\tab\tab easier to change when needed.\par
-\tab FrameW & FrameH in OSDirFrame.java, OSFrame.java, and OSHelpFrame.java - set \tab\tab\tab dimensions for the frames and easy reference for adding new things.\f1\lang9\par
-\f0\lang1033 6)\f1\lang9  Cross References\par
-
-\pard\sa200\sl276\slmult1\f0\tab a) execute() is called in MenuTabListener.java, but execute() and it's overrides call no \tab\tab other functions.\par
+\tab FrameW & FrameH in OSDirFrame.java, OSFrame.java, and OSHelpFrame.java - set \tab\tab\tab dimensions for the frames and easy reference for adding new things.\par
+\tab ProcessName in BlockPCB.java for easy access of the processName.\par
+\tab ProcessName, Class, and Priority in Create PCB.java for easy access and assignment of \tab\tab all 3 variables.\par
+\tab processName, processClass, priority, suspendedState, and memoryValue in PCB.java \tab\tab\tab for easy reference when assigning and obtaining values.\par
+\tab ProcessName in DeletePCB.java for easy access of the processName.\par
+\tab ProcessName in UnBlockPCB.java for easy access of the processName.\par
+\tab ProcessName in ResumePCB.java for easy access of the processName.\par
+\tab ProcessName & Priority in SetPriority PCB.java for easy access.\par
+\tab ProcessName in ShowPCB.java for easy access of the processName.\par
+\tab ProcessName & toShow in ShowAllPCB.java for easy access.\par
+\tab PCBBlockedQueue, PCBReadyQueue, and NULL for easy reference, and note: NULL is \tab\tab\tab a PCB that I use as a placeholder for whenever a PCB is not found. \f1\lang9\par
+\b\i\f0\lang1033 6)\f1\lang9  Cross References\par
+\b0\i0\f0\tab a) execute() is called in MenuTabListener.java, but execute() and it's overrides call no \tab\tab other functions.\par
 \tab b) runOS() is called in the main from SWOS.java, and runOS() calls the \tab\tab\tab\tab\tab functions: Initialize(JMenu file, JLabel[] ToolData) and \tab\tab\tab\tab\tab updateDateAndTime(SimpleDateFormat sdf1, SimpleDateFormat sdf2, JLabel \tab\tab\tab OSDataLabels[]) \par
 \tab c) Initialize(JMenu file, JLabel[] ToolData) is called in the runOS() function and calls \tab\tab\tab the functions createFrame(), createMenu(file), and addLayout(ToolData). \par
 \tab d) updateDateAndTime(SimpleDateFormat sdf1, SimpleDateFormat sdf2, JLabel \tab\tab\tab OSDataLabels[]) is called in the runOS() function, but calls no other functions.\par
- \tab e) createFrame() is called in the Initialize(JMenu file, JLabel[] ToolData) function, but \tab\tab\tab it calls no other functions.\par
-\tab f) createMenu(JMenu file) is called in the Initialize(JMenu file, JLabel[] ToolData)  \tab\tab\tab function, but calls no other functions.\par
-\tab g) addLayout(JLabel[] ToolData) is called in the Initialize(JMenu file, JLabel[] \tab\tab\tab\tab ToolData) function, but calls no other functions.\par
-\tab h) actionPerformed(ActionEvent e) is called by no other function, but it does call the \tab\tab\tab execute() and all of it's overrides.\par
-\tab i) main(String[] args) - is not called anywhere, but it does call the runOS() function.\lang1033\par
+\tab e) createMenu(JMenu file) is called in the Initialize(JLabel[] ToolData)  \tab\tab\tab function, but calls no other functions.\par
+\tab f) addLayout(JLabel[] ToolData) is called in the Initialize(JMenu file, JLabel[] \tab\tab\tab\tab ToolData) function, but calls no other functions.\par
+\tab g) actionPerformed(ActionEvent e) is called by no other function, but it does call the \tab\tab\tab execute() and all of it's overrides.\par
+\tab h) main(String[] args) - is not called anywhere, but it does call the runOS() function.\par
+\tab i) execute(PCBList list) - it is called and created in the createPCBMenu function(and \tab\tab\tab used by every PCB Command) , but calls no other function.\par
+\tab j) createPCBMenu() - It is called in the Initialize (JLabel[] ToolData) function, but calls \tab\tab\tab no other functions.\par
+\tab k) AllocatePCB() - create a PCB and give it an initial memory value, it returns a PCB, \tab\tab\tab and is called by SetupPCB(StringName, int Class, int Priority).\par
+\tab l) FreePCB (PCB PCBToUnallocateMemory) - it is called in DeletePCB from \tab\tab\tab\tab DeletePCB.java , and it's only purpose is to set memory values to 0.\par
+\tab m) SetupPCB(StringName, int Class, int Priority) - it calls AllocatePCB(), \tab\tab\tab\tab FindPCB(String PCBToFind), and insertPCB(PCBToBeAdded), and this function \tab\tab\tab is called by the CreatePCB command in CreatePCB.java.\par
+\tab n) FindPCB(String PCBNameToFind) - it calls no other functions, but is used in every \tab\tab\tab PCB command for the user.\par
+\tab o) insertPCBToQueue(int ReadyOrBlocked, PCB PCBToInsert) - it calls \tab\tab\tab\tab\tab insertPCB(PCBToBeAdded) from PCBBlockedQueue.java and \tab\tab\tab\tab\tab PCBReadyQueue.java and is called from the BlockPCB.java in it's execute \tab\tab\tab override, and unBlockPCB.java in it's execute override.\par
+\tab p) removePCB(PCB PCBToRemove) - it calls FindPCB(String PCBToFind) and is called \tab\tab\tab by the deletePCB userCommand.\lang1033\par
 }
  
