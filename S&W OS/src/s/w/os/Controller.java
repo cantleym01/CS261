@@ -24,7 +24,7 @@ public class Controller
     
     private JPanel OSToolBarPanel = new JPanel(); //The panel for the bottom of the OS
     
-    private String OSVer = "Ver 0.0.1"; //The current version, change as deemed needed
+    private String OSVer = "Ver 0.0.3"; //The current version, change as deemed needed
     
     //Create the "File" App for the menu bar, it holds commands such as:
     //Open Directory, History, Help, and Exit (maybe also Aliasing in the future)
@@ -33,6 +33,10 @@ public class Controller
     //Create the "PCBCommands" App for the menu bar, it holds commands such as:
     //CreatePCB, DeletePCB, Block, Unblock, Suspend, Resume, etc.
     private JMenu PCBCommands = new JMenu("PCBCommands");
+    
+    //Create the "Scheduler" App for the menu bar, it holds commands such as:
+    //SJF, FIFO, STCF, FPPS, etc.
+    private JMenu Scheduler = new JMenu("Scheduler");
     
     private PCBList pcbList = new PCBList(); //create the list of PCBs (includes queues)
     
