@@ -4,6 +4,7 @@ public class PCBList
 {
     PCBBlockedQueue blockedQueue = new PCBBlockedQueue(); //the blockedQueue of PCB's
     PCBReadyQueue readyQueue = new PCBReadyQueue(); //the readyQueue of PCB's
+    PCBRunningQueue runningQueue = new PCBRunningQueue(); //the runningQueue of PCB's
     
     //A "null" pcb
     PCB NULL = new PCB();
@@ -23,12 +24,13 @@ public class PCBList
         PCBToUnallocateMemory.memoryValue = 0; //memory = 0
     }
     
-    public void SetupPCB(String Name, int Class, int Priority)
-    {
+    public void SetupPCB(String Name, int Class, int Priority, int timeRemaining, int memory, int TOA, int CPU)
+    {       
         //see if it is already in the queues
         if ("NULL".equals(FindPCB(Name).processName)) //if it is not, create a new one
         {
             PCB newPCB = AllocatePCB(); //allocate the new PCB
+            newPCB.PCBTimer = timeRemaining; //this is not the line of code you are looking for
             
             //check for valid priorities
             if (Priority >= -127 && Priority <= 128) //if it is accepted, continue
@@ -54,6 +56,12 @@ public class PCBList
             }
             
             newPCB.processName = Name; //give the name to the PCB
+            
+            //set some other data
+            newPCB.memoryValue = memory;
+            newPCB.CPU = CPU;
+            newPCB.timeRemaining = timeRemaining;
+            newPCB.timeOfArrival = TOA;
             
             //everything has been good if this point is reached.
             //now just push it to the ready queue and set it to not suspended

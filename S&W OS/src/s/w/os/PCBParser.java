@@ -16,7 +16,7 @@ public class PCBParser
     private File PCBFile; //file for the PCBs
     private int nextTOA; //the next Time of Arrival for incomplete knowledge queues
     private int seq = 0; //sequential counter
-    private Boolean quit = false; //if the user chooses to stop in the input
+    public Boolean quit = false; //if the user chooses to stop in the input
     private Boolean doneWFile = false; //bool to tell when the file is done reading
     private String currentLine = null; //string for the current line being read from the file
     private BufferedReader reader; //reader to help file input
@@ -33,6 +33,7 @@ public class PCBParser
     Hashtable<String, Integer> CPU = new Hashtable<String, Integer>(); //CPU usage accessed by process name
     Hashtable<String, Integer> priority = new Hashtable<String, Integer>(); //priority accessed by process name
     Hashtable<String, Integer> timeRemaining = new Hashtable<String, Integer>(); //time remaining accessed by process name
+    Hashtable<String, Integer> memory = new Hashtable<String, Integer>(); //memory accessed by process name
     
     //linkedLists to use quicksort on priority and time remaining for some schedulers
     LinkedList prioritySort = new LinkedList();//The data in string form
@@ -40,10 +41,7 @@ public class PCBParser
     
     //read a file with this input for full knowledge schedulers
     public void readWholeFile()
-    {   
-        //get the file name
-        getFileName();
-        
+    {
         if (quit) //stop everything if user decides to quit
         {
             return;
@@ -78,6 +76,7 @@ public class PCBParser
                 CPU.put(PCBPart[0], strToInt(PCBPart[6])); //CPU usage accessed by process name
                 priority.put(PCBPart[0], strToInt(PCBPart[2])); //priority accessed by process name
                 timeRemaining.put(PCBPart[0], strToInt(PCBPart[4])); //time remaining accessed by process name
+                memory.put(PCBPart[0], strToInt(PCBPart[3]));
                 
                 //insert the data to linked lists
                 prioritySort.add(strToInt(PCBPart[2]));
@@ -86,10 +85,6 @@ public class PCBParser
                 //sort the priority and time remaining to find best versions
                 quickSort(prioritySort, 0, prioritySort.size() - 1);
                 quickSort(timeSort, 0, timeSort.size() - 1);
-                for (int i = 0; i < timeSort.size(); i++)
-                {
-                    System.out.println(timeSort.get(i));
-                }
                 
                 //set next TOA (time of arrival)
                 nextTOA = strToInt(PCBPart[5]);
@@ -110,7 +105,7 @@ public class PCBParser
         }
     }
     
-    private void getFileName()
+    public void getFileName()
     {
         String fileName; //name of the file
         
@@ -155,7 +150,7 @@ public class PCBParser
 
     private void quickSort(LinkedList list, int lowVal, int hiVal) //quicksort an array
     {   
-        if (list.size() == 0 || list.size() == 1) //cannot sort the array
+        if (list.size() <= 1) //cannot sort the array
         {
             return;
         }

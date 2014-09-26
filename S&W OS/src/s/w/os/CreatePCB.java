@@ -99,7 +99,8 @@ public class CreatePCB extends JMenuItem implements CommandPCB
             }
         }
         
-        list.SetupPCB(ProcessName, ClassID, PriorityVal); //setup the PCB
+        //no longer matters so I jsut commented this out
+        //list.SetupPCB(ProcessName, ClassID, PriorityVal); //setup the PCB
         
         return list; //return the list with all of it's changes
     }

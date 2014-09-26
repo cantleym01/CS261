@@ -23,7 +23,7 @@ public class HelpTab extends JMenuItem implements Command
         try
         {
             //I tried help.txt, as it is in the folder with other files, but it is overlooked still
-            File helpFile = new File("proc.txt");
+            File helpFile = new File("help.txt");
             FileReader helpRead = new FileReader(helpFile);
             
             BufferedReader reader = new BufferedReader(helpRead);

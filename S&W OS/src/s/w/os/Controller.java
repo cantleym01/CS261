@@ -86,7 +86,8 @@ public class Controller
     {
         createFileMenu(); //create the file menu for the OS
         createPCBMenu(); //create the PCB menu for the OS
-        addLayout(ToolData);
+        createSchedulerMenu(); //create the SchedulerMenu
+        addLayout(ToolData); //add the layout
     }
     
     private void updateDateAndTime(final SimpleDateFormat sdf1, final SimpleDateFormat sdf2,
@@ -120,11 +121,6 @@ public class Controller
         JMenuItem dir = new DirectoryTab();
         dir.setLabel("Directory"); //set tab name
         dir.addActionListener(listener); //add a listener to the tab
-       
-        //Create the History button for the file menu
-        JMenuItem his = new HistoryTab();
-        his.setLabel("History"); //set tab name
-        his.addActionListener(listener); //add a listener to the tab
         
         //Create the Help button for the file menu
         JMenuItem help = new HelpTab();
@@ -137,8 +133,6 @@ public class Controller
         exit.addActionListener(listener); //add a listener to the tab
         
         file.add(dir); //Add the directory tab to the file Menu
-                file.addSeparator(); //Add a separator to make things pretty
-        file.add(his); //Add the history tab to the file Menu
                 file.addSeparator(); //Add a separator to make things pretty
         file.add(help); //Add the history tab to the file Menu
                 file.addSeparator(); //Add a separator to make things pretty
@@ -242,6 +236,34 @@ public class Controller
         PCBCommands.add(showBlockedPCB); //Add the directory tab to the file Menu
 
         OSMenu.add(PCBCommands); //Add the file to the menu
+    }
+    
+    //Create the Scheduler menu for the OS
+    private void createSchedulerMenu()
+    {   
+        //This listener does not have a seperate file for command design pattern,
+        //because the PCBList needs to be modified with the PCB commands.
+        ActionListener listener = new
+            //override the ActionListner's actionPerformed for this button
+            ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    CommandPCB command = (CommandPCB)e.getSource();
+                    pcbList = command.execute(pcbList); //get all changes
+                }
+            };
+        
+        //Create the Directory button for the file menu
+        JMenuItem SJF = new SJFScheduler();
+        SJF.setLabel("SJF"); //set tab name
+        SJF.addActionListener(listener); //add a listener to the tab
+        
+        Scheduler.add(SJF); //Add the directory tab to the file Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+
+        OSMenu.add(Scheduler); //Add the file to the menu
     }
     
     private void addLayout(JLabel[] ToolData)
