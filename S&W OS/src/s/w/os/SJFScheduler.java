@@ -41,7 +41,6 @@ public class SJFScheduler extends JMenuItem implements CommandPCB
             int memory = parser.memory.get(processName);
             int timeOfArrival = parser.timeOfArrival.get(processName);
             int CPU = parser.CPU.get(processName);
-
             
             //make the PCB and shove it onto the ready queue
             list.SetupPCB(processName, actualClass, priority, timeRemaining, memory, timeOfArrival, CPU);
@@ -50,8 +49,8 @@ public class SJFScheduler extends JMenuItem implements CommandPCB
         //run the scheduler
         while (true)
         {  
-            //if all PCB's are finished, quit
-            if (list.readyQueue.size() <= 0 && list.runningQueue.size() <= 0)
+            //if all PCB's are finished, and there is no more input from the file quit
+            if (list.readyQueue.size() <= 0 && list.runningQueue.size() <= 0 && parser.doneWFile)
             {
                 break;
             }
@@ -59,7 +58,7 @@ public class SJFScheduler extends JMenuItem implements CommandPCB
             if (list.runningQueue.size() == 0) //if it is not running anything currently, add a PCB
             {
                 //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB(list.readyQueue.getHeadPCB());
+                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
             }
             
             list.runningQueue.timeCycle(); //run the PCB for one time cycle

@@ -17,9 +17,4 @@ public class PCBReadyQueue extends LinkedList
     {
         addLast(PCBToBeAdded); //insert the PCB into the first position
     }
-    
-    public PCB getHeadPCB() //get the PCB at the front of the ready queue
-    {
-        return (PCB)pop();
-    }
 }

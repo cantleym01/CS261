@@ -255,12 +255,24 @@ public class Controller
                 }
             };
         
-        //Create the Directory button for the file menu
+        //Create the SJF button for the scheduler menu
         JMenuItem SJF = new SJFScheduler();
         SJF.setLabel("SJF"); //set tab name
         SJF.addActionListener(listener); //add a listener to the tab
+        //Create the FIFO button for the scheduler menu
+        JMenuItem FIFO = new FIFOScheduler();
+        FIFO.setLabel("FIFO"); //set tab name
+        FIFO.addActionListener(listener); //add a listener to the tab
+        //Create the STCF button for the scheduler menu
+        JMenuItem STCF = new STCFScheduler();
+        STCF.setLabel("STCF"); //set tab name
+        STCF.addActionListener(listener); //add a listener to the tab
         
-        Scheduler.add(SJF); //Add the directory tab to the file Menu
+        Scheduler.add(SJF); //Add the SJF tab to the scheduler Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(FIFO); //Add the FIFO tab to the scheduler Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(STCF); //Add the FIFO tab to the scheduler Menu
                 Scheduler.addSeparator(); //Add a separator to make things pretty
 
         OSMenu.add(Scheduler); //Add the file to the menu

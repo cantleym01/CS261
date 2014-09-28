@@ -16,7 +16,7 @@ public class PCBRunningQueue extends LinkedList
     private JFrame frame = new JFrame(); //frame for output
     private JPanel panel = new JPanel(); //panel component
     private JScrollPane pane = new JScrollPane(panel); //make the panel scrollable
-    private int totalTime = 0;
+    public int totalTime = 0;
     private LinkedList turnAroundTimes = new LinkedList();
     
     PCBRunningQueue()
@@ -38,27 +38,27 @@ public class PCBRunningQueue extends LinkedList
     
     public PCB removeRunningPCB()
     {
-        PCB tempPCB = (PCB) get(0); //get the PCB running
-        clear(); //clear the running queue, there should be 0 on the queue after removing a PCB
+        PCB tempPCB = (PCB)get(0); //get the PCB running
         
         //new status
         JLabel newStatus = new JLabel(tempPCB.processName + " has exited the running queue.");
         panel.add(newStatus);
         frame.setVisible(true); //make is all visible
         
-        return tempPCB; //return the PCB that was running
+        //System.out.println(tempPCB.processName);
+        return (PCB)pop(); //return the PCB that was running and clear the running queue at the same time
     }
     
     public void timeCycle()
     {
+        //increment time
+        totalTime++;
+        
         if (size() > 0)
         {
             PCB tempPCB = (PCB) get(0); //temp PCB to manipulate
             tempPCB.PCBTimer--; //it has run for 1 second
             set(0, tempPCB); //replace old PCB with new PCB
-            
-            totalTime++;
-            System.out.println(tempPCB.timeRemaining);
 
             //check if the PCB has finished, if so, notify user and remove it from the running queue
             if (tempPCB.PCBTimer <= 0)
@@ -89,5 +89,17 @@ public class PCBRunningQueue extends LinkedList
         int avg = avgSum/turnAroundTimes.size(); //get the avg
         JLabel newStatus2 = new JLabel("Average Turn-around Time: " + avg);
         panel.add(newStatus2); 
+        
+        //clean up global variables for if user wants to run another scheduler
+        frame = new JFrame(); //frame for output
+        panel = new JPanel(); //panel component
+        pane = new JScrollPane(panel); //make the panel scrollable
+        totalTime = 0;
+        turnAroundTimes = new LinkedList();
+        
+        //also have to re-do constructor work
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS)); //give the panel the right layout
+        frame.setBounds(0, 0, 400, 200); //set initial bounds of the frame
+        frame.add(pane); //add the scrollable pane to the frame
     }
 }

@@ -17,8 +17,8 @@ public class PCBParser
     private int nextTOA; //the next Time of Arrival for incomplete knowledge queues
     private int seq = 0; //sequential counter
     public Boolean quit = false; //if the user chooses to stop in the input
-    private Boolean doneWFile = false; //bool to tell when the file is done reading
-    private String currentLine = null; //string for the current line being read from the file
+    public Boolean doneWFile = false; //bool to tell when the file is done reading
+    private  String currentLine = null; //string for the current line being read from the file
     private BufferedReader reader; //reader to help file input
     
     //hashtables to hold info
