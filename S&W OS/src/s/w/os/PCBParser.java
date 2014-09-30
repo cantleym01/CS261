@@ -96,7 +96,7 @@ public class PCBParser
             if (currentLine == null)
             {
                 doneWFile = true;
-                reader.close(); //close the reader (it will reopen for next input
+                reader.close(); //close the reader
             }
         }
         catch(Exception ex)
@@ -144,7 +144,7 @@ public class PCBParser
         }
         catch(Exception ex)
         {
-            System.out.println("Boo");
+            System.out.println("Error in creating Buffered Reader");
         }
     }
 

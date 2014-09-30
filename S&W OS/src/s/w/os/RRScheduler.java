@@ -1,10 +1,17 @@
 package s.w.os;
 
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-//STCF will run the PCB's according to time remaining, and will interupt a running PCB when needed
-public class STCFScheduler extends JMenuItem implements CommandPCB
+//RR will run the PCB's on a certain time quantum, specified by the user, and will
+//go to the next process once that quantum has expired, or the running process finishes
+public class RRScheduler extends JMenuItem implements CommandPCB
 {
+    private int timeQuantum = 0;//the variable for the user-defined time quantum
+            //I honestly think this may be the nerdiest name for something in CS
+    private Boolean quit = false;
+    
     @Override
     public PCBList execute(PCBList list)
     {
@@ -12,6 +19,13 @@ public class STCFScheduler extends JMenuItem implements CommandPCB
         parser.getFileName();//get the file name
         
         if (parser.quit) //if the user said to quit, stop everything in the command
+        {
+            return list;
+        }
+        
+        getTimeQuantum(); //get the time quantum
+        
+        if (quit)
         {
             return list;
         }
@@ -59,28 +73,24 @@ public class STCFScheduler extends JMenuItem implements CommandPCB
             }
             
             //if it is not running anything currently and has something to run, run a PCB
+            //this should take care of the part of RR where if the running queue is empty to push a new PCB on
             if (list.runningQueue.size() == 0 && list.readyQueue.size() != 0)
             {
                 //insert the first PCB in the ready queue
                 list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
             }
             
-            //if there are things to compare for interupt, compare them
-            if (list.runningQueue.size() > 0 && list.readyQueue.size() > 0)
+            //if the time quantum has expired, swap PCBs
+            //if totalTime % time quantum == 0, that means that it has passed the time quantum
+            //totalTime cannot = 0 in this comparison, as 0 % anything is 0
+            if (list.runningQueue.size() > 0 && list.readyQueue.size() > 0 && 
+               (list.runningQueue.totalTime % timeQuantum == 0) && list.runningQueue.totalTime != 0)
             {
-                //temporary PCBs for comparison
-                PCB tempPCB1 = (PCB)list.runningQueue.get(0);
-                PCB tempPCB2 = (PCB)list.readyQueue.get(0);
-
-                //if the PCB on the readyQueue's front has a lower time remaining than the running PCB, swap them
-                if (tempPCB2.timeRemaining < tempPCB1.timeRemaining)
-                {
                     //push the running PCB onto the readyQueue
                     list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
                     
                     //and push the next PCB in the readyQueue onto the running queue
                     list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
-                }
             }
             
             list.runningQueue.timeCycle(); //run the PCB for one time cycle
@@ -89,5 +99,47 @@ public class STCFScheduler extends JMenuItem implements CommandPCB
         //do final stuff (output end results and return the list)
         list.runningQueue.outputEnd();
         return list;
+    }
+    
+    private void getTimeQuantum()
+    {
+        String timeStr; //container for str of time
+        
+        //make a frame to contain the OptionPane
+        JFrame inputFrame = new JFrame();
+        inputFrame.setSize(500, 100); //width, height
+       
+        //keep trying to get input
+        while (true) 
+        {
+            //get the time
+            timeStr = (String)JOptionPane.showInputDialog(inputFrame, 
+            "Enter a time quantum for Round Robin (must be greater than 0). \n"
+            + "or type \"Quit\" to stop input");
+            
+            //if the user wants to quit, let them
+            if ("Quit".equals(timeStr) || "quit".equals(timeStr))
+            {
+                quit = true;
+                return;
+            }
+            
+            try //try to convert the string to an integer
+            {
+                timeQuantum = Integer.parseInt(timeStr);
+            }
+            catch (NumberFormatException ex) //exception that can be thrown
+            {
+                //do nothing, except skip what was meant to happen
+                //this is just here so the program doesn't scream at the user
+            }
+            finally //if the catch was not called, check if the input was good
+            {
+                if (timeQuantum > 0)
+                {
+                    break;
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package s.w.os;
+                package s.w.os;
 
 import javax.swing.JFrame; //Create the frame
 import javax.swing.JLabel;  //Make Labels
@@ -267,13 +267,36 @@ public class Controller
         JMenuItem STCF = new STCFScheduler();
         STCF.setLabel("STCF"); //set tab name
         STCF.addActionListener(listener); //add a listener to the tab
+        //Create the FPPS button for the scheduler menu
+        JMenuItem FPPS = new FPPSScheduler();
+        FPPS.setLabel("FPPS"); //set tab name
+        FPPS.addActionListener(listener); //add a listener to the tab
+        //Create the RR button for the scheduler menu
+        JMenuItem RR = new RRScheduler();
+        RR.setLabel("RR"); //set tab name
+        RR.addActionListener(listener); //add a listener to the tab
+        //Create the MLFQ button for the scheduler menu
+        JMenuItem MLFQ = new MLFQScheduler();
+        MLFQ.setLabel("MLFQ"); //set tab name
+        MLFQ.addActionListener(listener); //add a listener to the tab
+        //Create the LTY button for the scheduler menu
+        JMenuItem LTY = new LTYScheduler();
+        LTY.setLabel("LTY"); //set tab name
+        LTY.addActionListener(listener); //add a listener to the tab
         
         Scheduler.add(SJF); //Add the SJF tab to the scheduler Menu
                 Scheduler.addSeparator(); //Add a separator to make things pretty
         Scheduler.add(FIFO); //Add the FIFO tab to the scheduler Menu
                 Scheduler.addSeparator(); //Add a separator to make things pretty
-        Scheduler.add(STCF); //Add the FIFO tab to the scheduler Menu
+        Scheduler.add(STCF); //Add the STCF tab to the scheduler Menu
                 Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(FPPS); //Add the FPPS tab to the scheduler Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(RR); //Add the RR tab to the scheduler Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(MLFQ); //Add the MLFQ tab to the scheduler Menu
+                Scheduler.addSeparator(); //Add a separator to make things pretty
+        Scheduler.add(LTY); //Add the MLFQ tab to the scheduler Menu
 
         OSMenu.add(Scheduler); //Add the file to the menu
     }

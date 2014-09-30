@@ -53,7 +53,6 @@ public class PCBRunningQueue extends LinkedList
     {
         //increment time
         totalTime++;
-        
         if (size() > 0)
         {
             PCB tempPCB = (PCB) get(0); //temp PCB to manipulate
@@ -63,6 +62,7 @@ public class PCBRunningQueue extends LinkedList
             //check if the PCB has finished, if so, notify user and remove it from the running queue
             if (tempPCB.PCBTimer <= 0)
             {
+                System.out.println("yay");
                 //new status
                 JLabel newStatus = new JLabel(tempPCB.processName + " has finished running.");
                 panel.add(newStatus);

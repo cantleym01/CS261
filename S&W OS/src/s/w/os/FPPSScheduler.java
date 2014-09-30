@@ -2,8 +2,8 @@ package s.w.os;
 
 import javax.swing.JMenuItem;
 
-//STCF will run the PCB's according to time remaining, and will interupt a running PCB when needed
-public class STCFScheduler extends JMenuItem implements CommandPCB
+//FPPS will run the PCB's according to priority, and will interupt a running PCB when needed
+public class FPPSScheduler extends JMenuItem implements CommandPCB
 {
     @Override
     public PCBList execute(PCBList list)
@@ -72,8 +72,9 @@ public class STCFScheduler extends JMenuItem implements CommandPCB
                 PCB tempPCB1 = (PCB)list.runningQueue.get(0);
                 PCB tempPCB2 = (PCB)list.readyQueue.get(0);
 
-                //if the PCB on the readyQueue's front has a lower time remaining than the running PCB, swap them
-                if (tempPCB2.timeRemaining < tempPCB1.timeRemaining)
+                //if the PCB on the readyQueue's front has a higher priority than the running PCB, swap them
+                //I'm assuming that higher priority is the higher number, with 128 being max priority
+                if (tempPCB2.priority > tempPCB1.priority)
                 {
                     //push the running PCB onto the readyQueue
                     list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
