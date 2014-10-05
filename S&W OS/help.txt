@@ -4,3 +4,19 @@ V.0.0.3
    -History: Bring up a display of the last 20 interactions the user (you, I would hope) has had with the OS since it's start up.
    -Help: Display a short explaination for all available interactions that the user can have with the OS (you are here).
    -Exit: Close the OS from this tab, or click "No" or "Cancel" to stop from closing it once it has been selected.
+-PCBCommands (Note: These do almost nothing, as the schedulers give the user no time to use them):
+   -Suspend PCB: Suspend a user-defined PCB.
+   -Resume PCB: Resume (un-suspend) a user-defined PCB.
+   -Set PCB Priority: Set the priority for a PCB of your choosing.
+   -Show PCB: Display all of the data for a single PCB.
+   -Show All PCB: Display compressed data for all of the PCBs in the system.
+   -Show Ready PCB: Display all of the PCBs that are in the ready queue.
+   -Show Blocked PCB: Display all of the PCBs that are in the blocked queue.
+-Scheduler:
+   -SJF: The Shortest-Job-First is a complete-knowledge scheduler that has the fastest turn-over-time, but will not be able to handle new PCBs.
+   -FIFO: First-In-First-Out will run the PCBs as they arrive into the system, it is reliable, but slow.
+   -STCF: Shortest-Time To-Completion-First is an adaption of the SJF scheduler for incomplete-knowledge. It is good for finite amount of PCBs, as an infinite amount has no garuntee of ever running.
+   -FPPS: Fixed-Priority-Pre-Emptive-Scheduling is an incomplete knowledge scheduler that runs the PCBs based on their priority variables.
+   -RR: Round-Robin is a scheduler that runs each PCB sequentially, but on a user-specified time quantum.
+   -MLFQ: Multi-Level-Feedback-Queue is a scheduler that splits the PCBs into seperate queues based on priority, and then runs RR on them indiviually, if it passes a certain point, it will switch to RR for the user-defined time quantum.
+   -LTY: Lottery scheduler disperses a user-defined amount of tickets across all PCBs in the ready queue based on their estimated CPU usage %. If a PCB wins the "lottery" from a random ticked draw, it will enter the running queue for a time quantum.

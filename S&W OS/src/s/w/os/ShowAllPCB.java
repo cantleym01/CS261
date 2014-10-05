@@ -12,7 +12,7 @@ public class ShowAllPCB extends JMenuItem implements CommandPCB
 {
     //create the variables for the data (they have to be outside, otherwise listeners cannot modify them)
     private String ProcessName = "";
-    int toShow;
+    public int toShow;
     
     ShowAllPCB(int whatToShow)
     {

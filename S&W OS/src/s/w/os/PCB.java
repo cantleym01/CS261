@@ -10,5 +10,5 @@ public class PCB
     int timeRemaining; //how much time left until completion
     int timeOfArrival; //what is it's time of arrival to the system
     int CPU; //what is it's CPU usage percentage?
-    int PCBTimer; //this is used to calculate turn-around time
+    int PCBTimer; //this is manipulated so we don't overrde the PCB's timeRemaining variable
 }

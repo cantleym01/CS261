@@ -2,13 +2,12 @@ package s.w.os;
 
 public class PCBList 
 {
-    PCBBlockedQueue blockedQueue = new PCBBlockedQueue(); //the blockedQueue of PCB's
-    PCBReadyQueue readyQueue = new PCBReadyQueue(); //the readyQueue of PCB's
-    PCBRunningQueue runningQueue = new PCBRunningQueue(); //the runningQueue of PCB's
+    public PCBBlockedQueue blockedQueue = new PCBBlockedQueue(); //the blockedQueue of PCB's
+    public PCBReadyQueue readyQueue = new PCBReadyQueue(); //the readyQueue of PCB's
+    public PCBRunningQueue runningQueue = new PCBRunningQueue(); //the runningQueue of PCB's
     
     //A "null" pcb
-    PCB NULL = new PCB();
-    
+    private PCB NULL = new PCB();
     
     public PCB AllocatePCB()
     {
@@ -110,23 +109,6 @@ public class PCBList
         }
         NULL.processName = "NULL";
         return NULL; //default return if nothing is returned before now
-    }
-    
-    //insert the PCB onto the appropiate queue, 0 = Ready, 1 = blocked
-    public void insertPCBToQueue(int ReadyOrBlocked, PCB PCBToInsert)
-    {
-        if (ReadyOrBlocked == 0) //insert to readyQueue
-        {
-            readyQueue.add(PCBToInsert);
-        }
-        else if (ReadyOrBlocked == 1) //insert to blockedQueue
-        {
-            blockedQueue.add(PCBToInsert);
-        } 
-        else //something is wrong here
-        {
-            System.out.println("No valid queue to insert.");
-        }
     }
 
     public void removePCB(PCB PCBToRemove)

@@ -105,20 +105,15 @@ public class LTYScheduler extends JMenuItem implements CommandPCB
             if (list.runningQueue.size() == 0 && list.readyQueue.size() > 1)
             {
                 int lottery = 0;//use to find the winner of the lottery
-                //System.out.println("size" + list.readyQueue.size());
-            //System.out.println("amt: " + amountOfTicks);
-             //System.out.println("tot: " + totalTicks);
 
                 //get the ticket draw
                 if (amountOfTicks <= totalTicks) //enough for full lottery draw
                 {
                     lottery = generator.nextInt(amountOfTicks) + 1; //get the ticket number
-               //     System.out.println("lot: " + lottery);
                 }
                 else //not enough for full lottery draw
                 {
                     lottery = generator.nextInt(totalTicks) + 1; //get the ticket number
-                 //   System.out.println("lot: " + lottery);
                 }
                 int currentTicks = 0; //current omount of tickets
                 //search through the readyQueue for the winner
@@ -146,20 +141,15 @@ public class LTYScheduler extends JMenuItem implements CommandPCB
                 //push the running PCB onto the readyQueue
                 list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
                 int lottery = 0;//use to find the winner of the lottery
-                //System.out.println("size" + list.readyQueue.size());
-            //System.out.println("amt: " + amountOfTicks);
-             //System.out.println("tot: " + totalTicks);
 
                 //get the ticket draw
                 if (amountOfTicks <= totalTicks) //enough for full lottery draw
                 {
                     lottery = generator.nextInt(amountOfTicks) + 1; //get the ticket number
-               //     System.out.println("lot: " + lottery);
                 }
                 else //not enough for full lottery draw
                 {
                     lottery = generator.nextInt(totalTicks) + 1; //get the ticket number
-                 //   System.out.println("lot: " + lottery);
                 }
                 int currentTicks = 0; //current omount of tickets
                 //search through the readyQueue for the winner
