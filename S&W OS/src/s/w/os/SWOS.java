@@ -4,14 +4,6 @@
 
 package s.w.os;
 
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SpringLayout;
-
 public class SWOS {
     public static void main(String[] args) 
     {

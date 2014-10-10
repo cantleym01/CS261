@@ -8,23 +8,19 @@
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/SuspendPCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/SetPriorityPCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCB.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/CreatePCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/ShowPCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/STCFScheduler.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBParser.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSFrame.java</file>
+            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBParser.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/ResumePCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/ShowAllPCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/Controller.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/CommandPCB.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/DeletePCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBList.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/SWOS.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSDirFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/FPPSScheduler.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/RRScheduler.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/MLFQScheduler.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/OSHelpFrame.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/MenuTabListener.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/SJFScheduler.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/Command.java</file>
@@ -33,10 +29,8 @@
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBBlockedQueue.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/DirectoryTab.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/HelpTab.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/UnBlockPCB.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBReadyQueue.java</file>
             <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/PCBRunningQueue.java</file>
-            <file>file:/C:/Users/Michael/Documents/GitHub/CS261/S&amp;W%20OS/src/s/w/os/BlockPCB.java</file>
         </group>
     </open-files>
 </project-private>

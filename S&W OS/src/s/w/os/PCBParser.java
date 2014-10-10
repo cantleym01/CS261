@@ -1,13 +1,20 @@
 package s.w.os;
 
+/**
+ * FILE FORMAT FOR PCB: Process Name, Class, Priority, Memory, Time Remaining, Time of Arrival, Percentage of CPU
+ * 
+ * NOTE: THE PARSER TAKES PCBs WITH UNIQUE PROCESS NAMES, TIME REMAINING, AND TIME OF ARRIVAL
+ * IT WILL DO FUNKY STUFF WITH PCBs WITH THE SAME DATA IN ANY OF THESE 3 FIELDS
+ * THE ONLY SCHEDULER TO BE AFFECTED BY SAME TIME REMAININGS WILL BE THE SJF
+ * AND ON THE OTHER END, SAME TIME OF ARRIVAL WILL AFFECT ALL SCHEDULERS EXCEPT SJF
+ * SAME PROCESS NAMES WILL AFFECT ALL SCHEDULERS
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,7 +22,6 @@ public class PCBParser
 {
     private File PCBFile; //file for the PCBs
     private int nextTOA; //the next Time of Arrival for incomplete knowledge queues
-    private int seq = 0; //sequential counter
     private  String currentLine = null; //string for the current line being read from the file
     private BufferedReader reader; //reader to help file input
     public Boolean quit = false; //if the user chooses to stop in the input
@@ -81,8 +87,6 @@ public class PCBParser
                 
                 //set next TOA (time of arrival)
                 nextTOA = strToInt(PCBPart[5]);
-                
-                seq++; //increment the sequential counter
             }
             
             //close the file and be done with everything if we are done reading the file
@@ -151,38 +155,38 @@ public class PCBParser
         int midEle = (int)list.get(middle); //what the middle element is
         
         //reference these to not change initial values
-        int i = lowVal, j = hiVal;
+        int top = lowVal, bottom = hiVal;
         
-        while (i <= j)
+        while (top <= bottom)
         {
-            while((int)list.get(i) < midEle)
+            while((int)list.get(top) < midEle)
             {
-                i++;
+                top++;
             }
             
-            while((int)list.get(j) > midEle)
+            while((int)list.get(bottom) > midEle)
             {
-                j--;
+                bottom--;
             }
             
-            if (i <= j)
+            if (top <= bottom)
             {
-                int temp = (int)list.get(i);
-                list.set(i, list.get(j));
-                list.set(j, temp);
-                i++;
-                j--;
+                int temp = (int)list.get(top);
+                list.set(top, list.get(bottom));
+                list.set(bottom, temp);
+                top++;
+                bottom--;
             }
         }
 
         //do recursive stuff
-        if (lowVal < j)
+        if (lowVal < bottom)
         {
-            quickSort(list, lowVal, j);
+            quickSort(list, lowVal, bottom);
         }
-        if (i < hiVal)
+        if (top < hiVal)
         {
-            quickSort(list, i, hiVal);
+            quickSort(list, top, hiVal);
         }
     }
     

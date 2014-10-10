@@ -15,7 +15,8 @@ public class HelpTab extends JMenuItem implements Command
     public void execute()
     {
         //Help logic
-        JFrame helpFrame = new OSHelpFrame(); //The frame for the Help menu
+        JFrame helpFrame = new JFrame(); //The frame for the Help menu
+        helpFrame.setSize(500, 500);
         
         JTextArea helpTxt = new JTextArea(); //Java swing text extension
         

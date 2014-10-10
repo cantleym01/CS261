@@ -13,10 +13,12 @@ public class DirectoryTab extends JMenuItem implements Command
     @Override
     public void execute()
     {
-        JFrame dirFrame = new OSDirFrame(); //the frame for the directory output
+        JFrame dirFrame = new JFrame(); //the frame for the directory output
+        dirFrame.setSize(300, 500);
+        
         JTextArea dirTxt = new JTextArea(); //this will be added to the frame
         
-        File currentDir = new File("C:\\"); // current directory (if use C:\\, it will go with
+        File currentDir = new File("."); // current directory (if use C:\\, it will go with
                                 //the C:\\ directories and files, but no deeper)
 
         File[] files = currentDir.listFiles(); //the array holding the list of items

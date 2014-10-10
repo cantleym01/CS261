@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1412969525 source:c:\users\michael\documents\github\cs261\helloc\helloc\main.c
+	<stdio.h>
+	<stdlib.h>
+

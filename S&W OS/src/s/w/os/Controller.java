@@ -1,4 +1,4 @@
-                package s.w.os;
+package s.w.os;
 
 import javax.swing.JFrame; //Create the frame
 import javax.swing.JLabel;  //Make Labels
@@ -158,26 +158,6 @@ public class Controller
                 }
             };
         
-        //Create the Create PCB button for the PCBCommand menu
-        /*JMenuItem createPCB = new CreatePCB();
-        createPCB.setLabel("Create PCB"); //set tab name
-        createPCB.addActionListener(listener); //add a listener to the tab
-        
-        //Create the Delete PCB button for the PCBCommand menu
-        JMenuItem deletePCB = new DeletePCB();
-        deletePCB.setLabel("Delete PCB"); //set tab name
-        deletePCB.addActionListener(listener); //add a listener to the tab
-               
-        //Create the Block PCB button for the PCBCommand menu
-        JMenuItem blockPCB = new BlockPCB();
-        blockPCB.setLabel("Block PCB"); //set tab name
-        blockPCB.addActionListener(listener); //add a listener to the tab
-        
-        //Create the un-Block PCB button for the PCBCommand menu
-        JMenuItem unBlockPCB = new UnBlockPCB();
-        unBlockPCB.setLabel("Un-Block PCB"); //set tab name
-        unBlockPCB.addActionListener(listener); //add a listener to the tab     */
-        
         //Create the suspend PCB button for the PCBCommand menu
         JMenuItem suspendPCB = new SuspendPCB();
         suspendPCB.setLabel("Suspend PCB"); //set tab name
@@ -213,14 +193,6 @@ public class Controller
         showBlockedPCB.setLabel("Show Blocked PCB"); //set tab name
         showBlockedPCB.addActionListener(listener); //add a listener to the tab
         
-        /*PCBCommands.add(createPCB); //Add the directory tab to the file Menu
-                PCBCommands.addSeparator(); //Add a separator to make things pretty
-        PCBCommands.add(deletePCB); //Add the directory tab to the file Menu
-                PCBCommands.addSeparator(); //Add a separator to make things pretty
-        PCBCommands.add(blockPCB); //Add the directory tab to the file Menu
-                PCBCommands.addSeparator(); //Add a separator to make things pretty
-        PCBCommands.add(unBlockPCB); //Add the directory tab to the file Menu
-                PCBCommands.addSeparator(); //Add a separator to make things pretty */
         PCBCommands.add(suspendPCB); //Add the directory tab to the file Menu
                 PCBCommands.addSeparator(); //Add a separator to make things pretty
         PCBCommands.add(resumePCB); //Add the directory tab to the file Menu
