@@ -4,6 +4,8 @@
 
 package s.w.os;
 
+import java.util.LinkedList;
+
 public class SWOS {
     public static void main(String[] args) 
     {

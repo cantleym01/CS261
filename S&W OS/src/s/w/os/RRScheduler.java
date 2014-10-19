@@ -72,25 +72,33 @@ public class RRScheduler extends JMenuItem implements CommandPCB
                 parser.readNextLine(); //get next line of data for the PCB
             }
             
-            //if it is not running anything currently and has something to run, run a PCB
-            //this should take care of the part of RR where if the running queue is empty to push a new PCB on
-            if (list.runningQueue.size() == 0 && list.readyQueue.size() != 0)
-            {
-                //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
-            }
-            
             //if the time quantum has expired, swap PCBs
             //if totalTime % time quantum == 0, that means that it has passed the time quantum
             //totalTime cannot = 0 in this comparison, as 0 % anything is 0
-            if (list.runningQueue.size() > 0 && list.readyQueue.size() > 0 && 
-               (list.runningQueue.totalTime % timeQuantum == 0) && list.runningQueue.totalTime != 0)
+            if (list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
             {
-                    //push the running PCB onto the readyQueue
-                    list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
+                //empty the running queue of PCBs
+                for (int i = 0; i < list.runningQueue.size(); i++)
+                {
+                    PCB currentPCB = (PCB)list.runningQueue.get(i); //PCB to remove
                     
-                    //and push the next PCB in the readyQueue onto the running queue
-                    list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
+                    //insert the removed PCB into the ready queue
+                    list.readyQueue.insertPCB((PCB)list.runningQueue.removeRunningPCB(currentPCB));
+                }
+                
+                //insert next round of PCBs
+                while (list.readyQueue.size() > 0)
+                {
+                    //if the PCB fits, remove it from the ready queue, otherwise exit
+                    if (list.runningQueue.insertPCB((PCB)list.readyQueue.get(0)))
+                    {
+                        list.readyQueue.remove(0);
+                    }
+                    else 
+                    {
+                        break;
+                    }
+                }
             }
             
             list.runningQueue.timeCycle(); //run the PCB for one time cycle
@@ -98,6 +106,7 @@ public class RRScheduler extends JMenuItem implements CommandPCB
         
         //do final stuff (output end results and return the list)
         list.runningQueue.outputEnd();
+        list.runningQueue.resetMemory();
         return list;
     }
     

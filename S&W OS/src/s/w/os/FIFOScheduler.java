@@ -59,11 +59,18 @@ public class FIFOScheduler extends JMenuItem implements CommandPCB
             }
             
             
-            //if it is not running anything currently and has something to run, run a PCB
-            if (list.runningQueue.size() == 0 && list.readyQueue.size() != 0)
+            //if there are things that can run, try to run them
+            while (list.readyQueue.size() > 0)
             {
-                //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
+                //if the PCB fits, remove it from the ready queue, otherwise exit
+                if (list.runningQueue.insertPCB((PCB)list.readyQueue.get(0)))
+                {
+                    list.readyQueue.remove(0);
+                }
+                else 
+                {
+                    break;
+                }
             }
             
             list.runningQueue.timeCycle(); //run the PCB for one time cycle
@@ -71,6 +78,7 @@ public class FIFOScheduler extends JMenuItem implements CommandPCB
         
         //do final stuff (output end results and return the list)
         list.runningQueue.outputEnd();
+        list.runningQueue.resetMemory();
         return list;
     }
 }

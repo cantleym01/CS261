@@ -55,15 +55,25 @@ public class SJFScheduler extends JMenuItem implements CommandPCB
                 break;
             }
             
-            if (list.runningQueue.size() == 0) //if it is not running anything currently, add a PCB
+            //while there is available memory, keep inserting (as long as there is something to insert)
+            while (list.readyQueue.size() > 0)
             {
-                //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
+                //if the PCB fits, remove it from the ready queue, otherwise exit
+                if (list.runningQueue.insertPCB((PCB)list.readyQueue.get(0)))
+                {
+                    list.readyQueue.remove(0);
+                }
+                else 
+                {
+                    break;
+                }
             }
             
-            list.runningQueue.timeCycle(); //run the PCB for one time cycle
+            list.runningQueue.timeCycle(); //run the running queue for one time cycle
         }
+        
         list.runningQueue.outputEnd();
+        list.runningQueue.resetMemory();
         
         return list;
     }

@@ -145,7 +145,7 @@ public class PCBParser
         }
     }
 
-    private void quickSort(LinkedList list, int lowVal, int hiVal) //quicksort an array
+    private void quickSort(LinkedList list, int lowVal, int hiVal) //quicksort a list
     {   
         if (list.size() <= 1) //cannot sort the array
         {
