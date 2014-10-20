@@ -228,4 +228,23 @@ public class PCBRunningQueue extends LinkedList
         
         return returnMethod;
     }
+    
+    public int getFreeMemory()
+    {
+        LinkedList Mem = Memory.cloneMem();
+        int freeSpace = 0;
+        
+        for (int i = 0; i < Mem.size(); i++)
+        {
+            MemoryBlock temp = (MemoryBlock) Mem.get(i);
+            
+            //if the temp is not in use, add it's memory to freeSpace
+            if (temp.isInUse == 0)
+            {
+                freeSpace += temp.MemorySize;
+            }
+        }
+        
+        return freeSpace;
+    } //get the amount of free space available in memory
 }

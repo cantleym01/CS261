@@ -72,10 +72,10 @@ public class RRScheduler extends JMenuItem implements CommandPCB
                 parser.readNextLine(); //get next line of data for the PCB
             }
             
-            //if the time quantum has expired, swap PCBs
+            //if the time quantum has expired, empty PCBs from the running queue
             //if totalTime % time quantum == 0, that means that it has passed the time quantum
             //totalTime cannot = 0 in this comparison, as 0 % anything is 0
-            if (list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
+            if ( list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
             {
                 //empty the running queue of PCBs
                 for (int i = 0; i < list.runningQueue.size(); i++)
@@ -85,7 +85,11 @@ public class RRScheduler extends JMenuItem implements CommandPCB
                     //insert the removed PCB into the ready queue
                     list.readyQueue.insertPCB((PCB)list.runningQueue.removeRunningPCB(currentPCB));
                 }
-                
+            }
+            
+            //put stuff into running if nothing is running and there is stuff to run
+            if (list.readyQueue.size() > 0 && list.runningQueue.size() == 0)
+            {
                 //insert next round of PCBs
                 while (list.readyQueue.size() > 0)
                 {

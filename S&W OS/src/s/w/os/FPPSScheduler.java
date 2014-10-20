@@ -1,8 +1,5 @@
 package s.w.os;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import javax.swing.JMenuItem;
 
 //FPPS will run the PCB's according to priority, and will interupt a running PCB when needed
@@ -91,41 +88,18 @@ public class FPPSScheduler extends JMenuItem implements CommandPCB
                     //and it will fit in the memory, swap them
                     if (readyPCB.priority > runningPCB.priority)
                     {
-                        //output to memory file
-                        try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Memory.txt", true)))) 
-                        {
-                            out.println("\nAttempting Interrupt:\n");
-                            out.close();
-                        }
-                        catch (Exception e){}
-                        
-                        //remove the running PCB for some tests
-                        PCB interrupt = list.runningQueue.removeRunningPCB(runningPCB);
-                        
-                        //if the PCB fits, remove it from the ready queue, otherwise exit
-                        if (list.runningQueue.insertPCB(readyPCB))
-                        {
-                            //output to memory file
-                            try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Memory.txt", true)))) 
-                            {
-                                out.println("\nInterrupt Success:\n");
-                                out.close();
-                            }
-                            catch (Exception e){}
+                        //if it will fit once interrupted
+                        if (runningPCB.memoryValue + list.runningQueue.getFreeMemory() 
+                                >= readyPCB.memoryValue)
+                        {   
+                            //put the interrupted PCB in the ready
+                            list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB(runningPCB));
+                            
+                            //insert the ready PCB into the running queue
+                            list.runningQueue.insertPCB(readyPCB);
+                            
+                            //remove the PCB in the ready
                             list.readyQueue.remove(0);
-                            list.readyQueue.insertPCB(interrupt); //put the interrupted PCB in the ready
-                        }
-                        else //put the test back in running queue
-                        {
-                            //output to memory file
-                            try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Memory.txt", true)))) 
-                            {
-                                out.println("\nInterrupt Fail:\n");
-                                out.close();
-                            }
-                            catch (Exception e){}
-                            list.runningQueue.insertPCB(interrupt); //interrupted PCB continues
-                            break;
                         }
                     }
                     

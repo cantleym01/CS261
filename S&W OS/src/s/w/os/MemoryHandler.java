@@ -202,7 +202,6 @@ public class MemoryHandler
             {
                 bestIndex = index;
                 SpaceSave = compBlock.MemorySize - memory; //new space saved
-                System.out.println(SpaceSave);
             }
             
             index++;
@@ -223,6 +222,7 @@ public class MemoryHandler
                 int remainderMemSize = SpaceSave; //size for the remainder empty block
                 blockToSplit.PCBInUse = PCBName;
                 blockToSplit.MemorySize = memory;
+                blockToSplit.isInUse = 1;
                 Memory.set(bestIndex, blockToSplit); //set the new block
 
                 //the memory block that is the remainder
@@ -278,6 +278,7 @@ public class MemoryHandler
                 int remainderMemSize = SpaceSave; //size for the remainder empty block
                 blockToSplit.PCBInUse = PCBName;
                 blockToSplit.MemorySize = memory;
+                blockToSplit.isInUse = 1;
                 Memory.set(worstIndex, blockToSplit); //set the new block
 
                 //the memory block that is the remainder
@@ -416,4 +417,9 @@ public class MemoryHandler
             Memory.add(Memory.indexOf(prevMem) + 1, newMem);
         }
     } //insert a memoryblock after a specified one
+    
+    public LinkedList cloneMem()
+    {
+        return Memory;
+    }
 }
