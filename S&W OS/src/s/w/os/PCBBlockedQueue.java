@@ -15,6 +15,6 @@ public class PCBBlockedQueue extends LinkedList
 
     public void insertPCB(PCB PCBToBeAdded) //FIFO addition
     {
-        addLast(PCBToBeAdded); //insert the PCB into the first position
+        addLast(PCBToBeAdded); //insert the PCB into the last position
     }
 }

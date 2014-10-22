@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 //determine what process to run for that quantum from a "lottery"
 public class LTYScheduler extends JMenuItem implements CommandPCB
 {
-    private int timeQuantum = 100;//the variable for the time quantum
-            //I honestly think this may be the nerdiest name for something in CS
+    private int timeQuantum = 150;//the variable for the time quantum
+            //it has a time quantum as I don't want to do 1 time cycle per lottery winner
     private Boolean quit = false;
     private int amountOfTicks = 0;
     private int totalTicks = 0;
@@ -81,88 +81,76 @@ public class LTYScheduler extends JMenuItem implements CommandPCB
                     
                 parser.readNextLine(); //get next line of data for the PCB
             }
-
+            
+            //if the time quantum has expired, empty PCBs from the running queue
+            //if totalTime % time quantum == 0, that means that it has passed the time quantum
+            //totalTime cannot = 0 in this comparison, as 0 % anything is 0
+            if ( list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
+            {
+                //empty the running queue of PCBs
+                for (int i = 0; i < list.runningQueue.size(); i++)
+                {
+                    PCB currentPCB = (PCB)list.runningQueue.get(i); //PCB to remove
+                    
+                    //insert the removed PCB into the ready queue
+                    list.readyQueue.insertPCB((PCB)list.runningQueue.removeRunningPCB(currentPCB));
+                }
+            }
+            
             //get the total number of tickets
             for (int i = 0; i < list.readyQueue.size(); i++) //ready queue first
             {
                 PCB tempPCB = (PCB)list.readyQueue.get(i);
                 totalTicks += PCBTickets.get(tempPCB.processName); //add to the total tickets
             }
-            for (int i = 0; i < list.runningQueue.size(); i++) //running queue second
-            {
-                PCB tempPCB = (PCB)list.runningQueue.get(i);
-                totalTicks += PCBTickets.get(tempPCB.processName); //add to the total tickets
-            }
             
-            //if it is not running anything currently and has one thing to run, run a PCB
-            if (list.runningQueue.size() == 0 && list.readyQueue.size() == 1)
+            //if a PCB has finished running, and the readyQueue has 1 or more do lottery
+            if (list.runningQueue.size() == 0 && list.readyQueue.size() > 0)
             {
-                //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
-            }
-            
-            //if a PCB has finished running, and the readyQueue has more than 1 do lottery
-            if (list.runningQueue.size() == 0 && list.readyQueue.size() > 1)
-            {
-                int lottery = 0;//use to find the winner of the lottery
+                //keep doing lottery while the memory is not full
+                while (true)
+                {
+                    int lottery = 0;//use to find the winner of the lottery
+                    Boolean quiter = false; //tell it to stahp the lottery drawings
 
-                //get the ticket draw
-                if (amountOfTicks <= totalTicks) //enough for full lottery draw
-                {
-                    lottery = generator.nextInt(amountOfTicks) + 1; //get the ticket number
-                }
-                else //not enough for full lottery draw
-                {
-                    lottery = generator.nextInt(totalTicks) + 1; //get the ticket number
-                }
-                int currentTicks = 0; //current omount of tickets
-                //search through the readyQueue for the winner
-                for(int i = 0; i < list.readyQueue.size(); i++)
-                {   
-                    PCB tempPCB = (PCB)list.readyQueue.get(i); //temp PCB for comparisons
-                    
-                    currentTicks += PCBTickets.get(tempPCB.processName); //add to current ticket counter
-                    
-                    if (currentTicks >= lottery) //current ticket has been found
+                    //get the ticket draw
+                    if (amountOfTicks <= totalTicks) //enough for full lottery draw
                     {
-                        //and push the next PCB in the readyQueue onto the running queue
-                        list.runningQueue.insertPCB((PCB)list.readyQueue.remove(i));
-                        break;
+                        lottery = generator.nextInt(amountOfTicks) + 1; //get the ticket number
                     }
-                }
-            }
- 
-            //if the time quantum has expired, swap PCBs
-            //if totalTime % time quantum == 0, that means that it has passed the time quantum
-            //totalTime cannot = 0 in this comparison, as 0 % anything is 0
-            if (list.runningQueue.size() > 0 && list.readyQueue.size() > 0 && 
-               (list.runningQueue.totalTime % timeQuantum == 0) && list.runningQueue.totalTime != 0)
-            {
-                //push the running PCB onto the readyQueue
-                list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
-                int lottery = 0;//use to find the winner of the lottery
-
-                //get the ticket draw
-                if (amountOfTicks <= totalTicks) //enough for full lottery draw
-                {
-                    lottery = generator.nextInt(amountOfTicks) + 1; //get the ticket number
-                }
-                else //not enough for full lottery draw
-                {
-                    lottery = generator.nextInt(totalTicks) + 1; //get the ticket number
-                }
-                int currentTicks = 0; //current omount of tickets
-                //search through the readyQueue for the winner
-                for(int i = 0; i < list.readyQueue.size(); i++)
-                {   
-                    PCB tempPCB = (PCB)list.readyQueue.get(i); //temp PCB for comparisons
-                    
-                    currentTicks += PCBTickets.get(tempPCB.processName); //add to current ticket counter
-                    
-                    if (currentTicks >= lottery) //current ticket has been found
+                    else //not enough for full lottery draw
                     {
-                        //and push the next PCB in the readyQueue onto the running queue
-                        list.runningQueue.insertPCB((PCB)list.readyQueue.remove(i));
+                        lottery = generator.nextInt(totalTicks) + 1; //get the ticket number
+                    }
+                    
+                    int currentTicks = 0; //current omount of tickets
+                    //search through the readyQueue for the winner
+                    for(int i = 0; i < list.readyQueue.size(); i++)
+                    {   
+                        PCB tempPCB = (PCB)list.readyQueue.get(i); //temp PCB for comparisons
+
+                        currentTicks += PCBTickets.get(tempPCB.processName); //add to current ticket counter
+
+                        if (currentTicks >= lottery) //current ticket has been found
+                        {
+                            PCB tryPCB = tempPCB;
+                            
+                            //and push the next PCB in the readyQueue onto the running queue
+                            if(list.runningQueue.insertPCB(tryPCB))
+                            {
+                                list.readyQueue.remove(i);
+                            }
+                            else
+                            {
+                                quiter = true;
+                            }
+                            break;
+                        }
+                    }
+                    
+                    //break if the memory is filled or the ready queue is empty
+                    if (quiter || list.readyQueue.size() == 0)
+                    {
                         break;
                     }
                 }

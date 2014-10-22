@@ -92,22 +92,26 @@ public class MLFQScheduler extends JMenuItem implements CommandPCB
                 parser.readNextLine(); //get next line of data for the PCB
             }
             
-            //if it is not running anything currently and has something to run, run a PCB
-            //this should take care of the part of the scheduler where if the running queue is empty to push a new PCB on
-            if (list.runningQueue.size() == 0 && list.readyQueue.size() != 0)
+            //if we are still doing MLFQ, do that
+            if (list.runningQueue.totalTime < switchToRR)
             {
-                //insert the first PCB in the ready queue
-                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
-            }
-            
-            //if the time quantum has expired, swap PCBs
-            //if totalTime % time quantum == 0, that means that it has passed the time quantum
-            //totalTime cannot = 0 in this comparison, as 0 % anything is 0
-            if (list.runningQueue.size() > 0 && list.readyQueue.size() > 0 && 
-               (list.runningQueue.totalTime % timeQuantum == 0) && list.runningQueue.totalTime != 0)
-            {
-                //if we are still doing MLFQ, do that
-                if (list.runningQueue.totalTime < switchToRR)
+                //if the time quantum has expired, empty PCBs from the running queue
+                //if totalTime % time quantum == 0, that means that it has passed the time quantum
+                //totalTime cannot = 0 in this comparison, as 0 % anything is 0
+                if ( list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
+                {
+                    //empty the running queue of PCBs
+                    for (int i = 0; i < list.runningQueue.size(); i++)
+                    {
+                        PCB currentPCB = (PCB)list.runningQueue.get(i); //PCB to remove
+
+                        //insert the removed PCB into the ready queue
+                        list.readyQueue.insertPCB((PCB)list.runningQueue.removeRunningPCB(currentPCB));
+                    }
+                }
+                
+                //put stuff into running if nothing is running and there is stuff to run
+                if (list.readyQueue.size() > 0 && list.runningQueue.size() == 0)
                 {
                     Boolean PCBfound = false; //used to exit the outer loop
 
@@ -120,18 +124,13 @@ public class MLFQScheduler extends JMenuItem implements CommandPCB
                         {
                             PCB tempPCB = (PCB)list.readyQueue.get(j); //temp PCB for comparisons
 
-                            //if the chosen PCB is in the correct range, swap
+                            //if the chosen PCB is in the correct range, input it
                             if (tempPCB.priority > queueArray[i].lowVal && tempPCB.priority < queueArray[i].hiVal)
                             {
-                                //push the running PCB onto the readyQueue
-                                list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
-
                                 //and push the next PCB in the readyQueue onto the running queue
-                                list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
+                                list.runningQueue.insertPCB((PCB)list.readyQueue.remove(j));
 
                                 PCBfound = true; //tells process to break from the outer loop
-
-                                break;
                             }
                         }
 
@@ -141,13 +140,40 @@ public class MLFQScheduler extends JMenuItem implements CommandPCB
                         }
                     }
                 }
-                else //do RR
+            }
+            else //do RR
+            {
+                //if the time quantum has expired, empty PCBs from the running queue
+                //if totalTime % time quantum == 0, that means that it has passed the time quantum
+                //totalTime cannot = 0 in this comparison, as 0 % anything is 0
+                if ( list.runningQueue.totalTime % timeQuantum == 0 && list.runningQueue.totalTime != 0)
                 {
-                    //push the running PCB onto the readyQueue
-                    list.readyQueue.insertPCB(list.runningQueue.removeRunningPCB());
+                    //empty the running queue of PCBs
+                    for (int i = 0; i < list.runningQueue.size(); i++)
+                    {
+                        PCB currentPCB = (PCB)list.runningQueue.get(i); //PCB to remove
 
-                    //and push the next PCB in the readyQueue onto the running queue
-                    list.runningQueue.insertPCB((PCB)list.readyQueue.pop());
+                        //insert the removed PCB into the ready queue
+                        list.readyQueue.insertPCB((PCB)list.runningQueue.removeRunningPCB(currentPCB));
+                    }
+                }
+
+                //put stuff into running if nothing is running and there is stuff to run
+                if (list.readyQueue.size() > 0 && list.runningQueue.size() == 0)
+                {
+                    //insert next round of PCBs
+                    while (list.readyQueue.size() > 0)
+                    {
+                        //if the PCB fits, remove it from the ready queue, otherwise exit
+                        if (list.runningQueue.insertPCB((PCB)list.readyQueue.get(0)))
+                        {
+                            list.readyQueue.remove(0);
+                        }
+                        else 
+                        {
+                            break;
+                        }
+                    }
                 }
             }
             

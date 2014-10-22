@@ -19,4 +19,4 @@ V.0.0.3
    -FPPS: Fixed-Priority-Pre-Emptive-Scheduling is an incomplete knowledge scheduler that runs the PCBs based on their priority variables.
    -RR: Round-Robin is a scheduler that runs each PCB sequentially, but on a user-specified time quantum.
    -MLFQ: Multi-Level-Feedback-Queue is a scheduler that splits the PCBs into seperate queues based on priority, and then runs RR on them indiviually, if it passes a certain point, it will switch to RR for the user-defined time quantum.
-   -LTY: Lottery scheduler disperses a user-defined amount of tickets across all PCBs in the ready queue based on their estimated CPU usage %. If a PCB wins the "lottery" from a random ticked draw, it will enter the running queue for a time quantum.
+   -LTY: Lottery scheduler disperses a user-defined amount of tickets across all PCBs in the ready queue based on their estimated CPU usage %. If a PCB wins the "lottery" from a random ticket draw, it will enter the running queue for a time quantum.
